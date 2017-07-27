@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Gecko.Security.Domain" assembly="Gecko.Security">
+  <class name="ModuleRight" table="PB_MODULE_RIGHT" proxy="ModuleRight">
+
+    <cache usage="read-write" />
+
+    <id name="Id" column="PB_ID" type="String" length="15">
+      <generator class="assigned" />
+    </id>
+
+    <property name="RightTag" column="PB_RIGHT_TAG" type="String" length="40" />
+
+    <many-to-one name="Module" column="PB_MODULE_ID" class="Module" />
+
+    <set name="RolesGrant" table="PB_ROLE_MODULE_RIGHT_GRANT" inverse="true" lazy="true">
+      <cache usage="read-write" />
+      <key column="PB_RIGHT_ID" />
+      <many-to-many class="Role" column="PB_ROLE_ID" outer-join="false" not-found="ignore"/>
+    </set>
+    <set name="RolesDeny" table="PB_ROLE_MODULE_RIGHT_DENY" inverse="true" lazy="true">
+      <cache usage="read-write" />
+      <key column="PB_RIGHT_ID" />
+      <many-to-many class="Role" column="PB_ROLE_ID" outer-join="false" />
+    </set>
+
+    <set name="StaffGrant" table="PB_STAFF_MODULE_RIGHT_GRANT" inverse="true" lazy="true">
+      <cache usage="read-write" />
+      <key column="PB_RIGHT_ID" />
+      <many-to-many class="Staff" column="PB_LOGIN_ID" outer-join="false" />
+    </set>
+    <set name="StaffDeny" table="PB_STAFF_MODULE_RIGHT_DENY" inverse="true" lazy="true">
+      <cache usage="read-write" />
+      <key column="PB_RIGHT_ID" />
+      <many-to-many class="Staff" column="PB_LOGIN_ID" outer-join="false" />
+    </set>
+
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Gecko.Security.Domain" assembly="Gecko.Security">
+	<class name="User" table="PB_USER" proxy="User">
+
+		<cache usage="read-write" />
+
+		<id name="LoginId" column="PB_LOGIN_ID" type="String" length="20">
+			<generator class="assigned"/>
+		</id>
+
+		<property name="Password" column="PB_PASSWORD" type="String" not-null="true" length="40" />
+		<property name="Name" column="PB_NAME" type="String" length="20" />
+		<property name="Sex" column="PB_SEX" type="Int32" />
+		<property name="Birthday" column="PB_BIRTHDAY" type="DateTime" />
+		<property name="IdCard" column="PB_ID_CARD" type="String" length="18" />
+		<property name="OfficePhone" column="PB_OFFICE_PHONE" type="String" length="40" />
+		<property name="FamilyPhone" column="PB_FAMILY_PHONE" type="String" length="40" />
+		<property name="CellPhone" column="PB_CELL_PHONE" type="String" length="40" />
+		<property name="Email" column="PB_EMAIL" type="String" length="100" />
+		<property name="Address" column="PB_ADDRESS" type="String" length="200" />
+		<property name="ZipCode" column="PB_ZIP_CODE" type="String" length="20" />
+		<property name="Remark" column="PB_REMARK" type="String" length="200" />
+		<property name="Disabled" column="PB_DISABLED" type="Int32" not-null="true" />
+		<property name="RegisterDate" column="PB_REGISTER_DATE" type="DateTime" not-null="true" />
+
+	</class>
+</hibernate-mapping>

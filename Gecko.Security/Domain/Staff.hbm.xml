@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Gecko.Security.Domain" assembly="Gecko.Security">
+  <class name="Staff" table="PB_STAFF" proxy="Staff">
+
+    <cache usage="read-write" />
+
+    <id name="LoginId" column="PB_LOGIN_ID" type="String" length="20">
+      <generator class="assigned"/>
+    </id>
+
+    <property name="Password" column="PB_PASSWORD" type="String" not-null="true" length="40" />
+    <property name="Code" column="PB_CODE" type="String" length="40" />
+    <property name="Name" column="PB_NAME" type="String" not-null="true" length="40" />
+    <property name="Sex" column="PB_SEX" type="Int32" />
+    <property name="Married" column="PB_MARRIED" type="Int32" />
+    <property name="IdCard" column="PB_ID_CARD" type="String" length="18" />
+    <property name="CountryTag" column="PB_COUNTRY_TAG" type="String" length="40" />
+    <property name="NationTag" column="PB_NATION_TAG" type="String" length="40" />
+    <property name="PositionTag" column="PB_POSITION_TAG" type="String" length="40" />
+    <property name="TitleTag" column="PB_TITLE_TAG" type="String" length="40" />
+    <property name="PoliticalAppearanceTag" column="PB_POLITICAL_APPEARANCE_TAG" type="String" length="40" />
+    <property name="DegreeTag" column="PB_DEGREE_TAG" type="String" length="40" />
+    <property name="Birthday" column="PB_BIRTHDAY" type="DateTime" />
+    <property name="EntersDay" column="PB_ENTERS_DAY" type="DateTime" />
+    <property name="LeavesDay" column="PB_LEAVES_DAY" type="DateTime" />
+    <property name="OfficePhone" column="PB_OFFICE_PHONE" type="String" length="40" />
+    <property name="ExtNumber" column="PB_EXT_NUMBER" type="String" length="20" />
+    <property name="FamilyPhone" column="PB_FAMILY_PHONE" type="String" length="40" />
+    <property name="CellPhone" column="PB_CELL_PHONE" type="String" length="40" />
+    <property name="Email" column="PB_EMAIL" type="String" length="100" />
+    <property name="Address" column="PB_ADDRESS" type="String" length="200" />
+    <property name="ZipCode" column="PB_ZIP_CODE" type="String" length="20" />
+    <property name="Remark" column="PB_REMARK" type="String" length="200" />
+    <property name="IsInnerUser" column="PB_IS_INNER_USER" type="Int32" not-null="true" />
+    <property name="Disabled" column="PB_DISABLED" type="Int32" not-null="true" />
+    <property name="OrderId" column="PB_ORDER_ID" type="Int32" not-null="true" />
+
+    <many-to-one name="Department" column="PB_DEPARTMENT_ID" class="Department" />
+
+    <set name="Roles" table="PB_STAFF_ROLE" lazy="true">
+      <cache usage="read-write" />
+      <key column="PB_LOGIN_ID" />
+      <many-to-many class="Role" column="PB_ROLE_ID" outer-join="false" />
+    </set>
+
+    <set name="ModuleRightsGrant" table="PB_STAFF_MODULE_RIGHT_GRANT" lazy="true">
+      <cache usage="read-write" />
+      <key column="PB_LOGIN_ID" />
+      <many-to-many class="ModuleRight" column="PB_RIGHT_ID" outer-join="false" />
+    </set>
+    <set name="ModuleRightsDeny" table="PB_STAFF_MODULE_RIGHT_DENY" lazy="true">
+      <cache usage="read-write" />
+      <key column="PB_LOGIN_ID" />
+      <many-to-many class="ModuleRight" column="PB_RIGHT_ID" outer-join="false" />
+    </set>
+
+  </class>
+</hibernate-mapping>

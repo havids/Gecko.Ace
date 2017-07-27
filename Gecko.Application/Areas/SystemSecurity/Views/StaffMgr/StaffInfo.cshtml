@@ -1,0 +1,133 @@
+﻿@model Gecko.Security.DTO.StaffDTO
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>StaffDTO</title>
+    <link type="text/css" href="~/Content/css/info.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="~/Content/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Content/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Content/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Content/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Content/Scripts/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript">
+
+        function staffsuccess(data) {
+            if (data == "1") {
+                alert("操作成功");
+                parent.staffwinclose();
+            }
+            else { alert(data); }
+        }
+
+    </script>
+    <div class="container1">
+        @using (Ajax.BeginForm("StaffInfo", "StaffMgr", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "staffsuccess(data);" }))
+        {
+            @Html.HiddenFor(model => model.DepartmentId)
+
+            <input type="hidden" value="@ViewBag.actionStr" name="actionStr" />
+            <table class="tablestyle">
+                <thead>
+                    <tr>
+                        <td class="td1">登陆Id:</td>
+                        <td class="td2"><input id="LoginId" name="LoginId" value="@Model.LoginId" @(Model.LoginId != null ? "readonly" : "") /><span class="requiredspan">&nbsp;*</span></td>
+                        <td class="td3">
+                            <span id="spanPassword">密码:</span>
+                        </td>
+                        <td>
+                            <input maxlength="20" type="password" value="@Model.Password" name="Password" id="txtStaffPassword" class="textBoxRed" /><span class="requiredspan">&nbsp;*</span>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>姓名:</td>
+                        <td>@Html.EditorFor(model => model.Name)<span class="requiredspan">&nbsp;*</span></td>
+                        <td>已禁用:</td>
+                        <td>@Html.EditorFor(model => model.Disabled)</td>
+                    </tr>
+                    <tr>
+                        <td>排序ID:</td>
+                        <td>@Html.EditorFor(model => model.OrderId)<span class="requiredspan">&nbsp;*</span></td>
+                        <td>身份证号:</td>
+                        <td>@Html.EditorFor(model => model.IdCard)</td>
+                    </tr>
+                    <tr>
+                        <td>编号:</td>
+                        <td>@Html.EditorFor(model => model.Code)</td>
+                        <td>最高学历:</td>
+                        <td>@Html.EditorFor(model => model.DegreeTag)</td>
+                    </tr>
+                    <tr>
+                        <td>性别:</td>
+                        <td>@Html.EditorFor(model => model.Sex)</td>
+                        <td>政治面貌:</td>
+                        <td>@Html.EditorFor(model => model.PoliticalAppearanceTag)</td>
+                    </tr>
+                    <tr>
+                        <td>婚否:</td>
+                        <td>@Html.EditorFor(model => model.Married)</td>
+                        <td>出生日期:</td>
+                        <td>@Html.TextBoxFor(model => model.Birthday, new { @class = "Wdate", onclick = "WdatePicker()" })</td>
+                    </tr>
+                    <tr>
+                        <td>国籍:</td>
+                        <td>@Html.EditorFor(model => model.CountryTag)</td>
+                        <td>入职日期:</td>
+                        <td>@Html.TextBoxFor(model => model.EntersDay, new { @class = "Wdate", onclick = "WdatePicker()" })</td>
+                    </tr>
+                    <tr>
+                        <td>民族:</td>
+                        <td>@Html.EditorFor(model => model.NationTag)</td>
+                        <td>离职日期:</td>
+                        <td>@Html.TextBoxFor(model => model.LeavesDay, new { @class = "Wdate", onclick = "WdatePicker()" })</td>
+                    </tr>
+                    <tr>
+                        <td>职位:</td>
+                        <td>@Html.EditorFor(model => model.PositionTag)</td>
+                        <td>办公电话:</td>
+                        <td>@Html.EditorFor(model => model.OfficePhone)</td>
+                    </tr>
+                    <tr>
+                        <td>职称:</td>
+                        <td>@Html.EditorFor(model => model.TitleTag)</td>
+                        <td>分机号码:</td>
+                        <td>@Html.EditorFor(model => model.ExtNumber)</td>
+                    </tr>
+                    <tr>
+                        <td>手机:</td>
+                        <td>@Html.EditorFor(model => model.CellPhone)</td>
+                        <td>家庭电话:</td>
+                        <td>@Html.EditorFor(model => model.FamilyPhone)</td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td>@Html.EditorFor(model => model.Email)</td>
+                        <td>邮政编码:</td>
+                        <td>@Html.EditorFor(model => model.ZipCode)</td>
+                    </tr>
+                    <tr>
+                        <td>备注:</td>
+                        <td>@Html.EditorFor(model => model.Remark)</td>
+                        <td>家庭地址:</td>
+                        <td>@Html.EditorFor(model => model.Address)</td>
+                    </tr>
+                </tbody>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="确定" /></td>
+                </tr>
+            </table>
+        }
+    </div>
+</body>
+</html>

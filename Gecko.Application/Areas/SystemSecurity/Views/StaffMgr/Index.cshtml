@@ -1,0 +1,168 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/icon.css">
+    <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <div id="content">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'north',split:true,border:false" style="height:50px">
+                <div style="padding:9px;width:500px;">
+                    <a href="javascript:void(0);" data-options="disabled:true" id="s_btnAdd" class="easyui-linkbutton" iconcls="icon-add">新增</a>
+                    <a href="javascript:void(0);" data-options="disabled:true" id="s_btnEdit" class="easyui-linkbutton" iconcls="icon-edit">编辑</a>
+                    <a href="javascript:void(0);" data-options="disabled:true" id="s_btnEditPwd" class="easyui-linkbutton" iconcls="icon-edit">密码重置</a>
+                    <a href="javascript:void(0);" data-options="disabled:true" id="s_btnRole" class="easyui-linkbutton" iconcls="icon-lock">角色</a>
+                    <a href="javascript:void(0);" data-options="disabled:true" id="s_btnSecurity" class="easyui-linkbutton" iconcls="icon-lock">授权</a>
+                    <a href="javascript:void(0);" data-options="disabled:true" id="s_btnDel" class="easyui-linkbutton" iconcls="icon-cancel">删除</a>
+                </div>
+            </div>
+            <div data-options="region:'west',split:true,border:false" style="width:200px">
+                <ul id="staff-easyui-tree"></ul>
+            </div>
+            <div data-options="region:'center',border:false" style="padding-top:30px; padding-left:30px;">
+                <div id="staffdepartmentpanel" class="easyui-panel" title=" " data-options="noheader:true,border:false" closed="true">
+                    <table style="border-collapse:separate; border-spacing:0px 10px;">
+                        <tr>
+                            <td>名称:</td>
+                            <td><input id="staff_dtxtName" type="text" name="txtName" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>排序ID:</td>
+                            <td><input id="staff_dtxtOrderId" name="txtOrderId" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>电话号码:</td>
+                            <td><input id="staff_dtxtPhone" name="txtPhone" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>分机号码:</td>
+                            <td><input id="staff_dtxtExtNumber" name="txtExtNumber" data-options="readonly:true" type="text" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>传真号码:</td>
+                            <td><input id="staff_dtxtFax" name="txtFax" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>备注:</td>
+                            <td><input id="staff_dtxtaRemark" name="txtaRemark" data-options="readonly:true" type="text" class="easyui-textbox" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="staffpanel" class="easyui-panel" title=" " data-options="noheader:true,border:false" closed="true">
+                    <table>
+                        <tr>
+                            <td>登陆Id:</td>
+                            <td><input id="txtStaffLoginId" type="text" name="txtStaffLoginId" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>姓名:</td>
+                            <td><input id="txtStaffName" name="txtStaffName" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                            <td>已禁用:</td>
+                            <td><span id="txtStaffDisabled"></span></td>
+                        </tr>
+                        <tr>
+                            <td>排序ID:</td>
+                            <td><input id="txtStaffOrderId" name="txtStaffOrderId" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                            <td>身份证号:</td>
+                            <td><input id="txtStaffIdCard" type="text" name="txtStaffIdCard" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>编号:</td>
+                            <td><input id="txtStaffCode" name="txtStaffCode" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                            <td>最高学历:</td>
+                            <td><input id="txtStaffDegree" type="text" name="txtStaffDegree " data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>性别:</td>
+                            <td><input id="txtStaffSex" name="txtStaffSex" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                            <td>政治面貌:</td>
+                            <td><input id="txtStaffPolitical" type="text" name="txtStaffPolitical" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>婚否:</td>
+                            <td><input id="txtStaffMarried" name="txtStaffMarried" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                            <td>出生日期:</td>
+                            <td><input id="txtStaffBirthday" type="text" name="txtStaffBirthday" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>国籍:</td>
+                            <td><input id="txtStaffCountry" name="txtStaffCountry" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                            <td>入职日期:</td>
+                            <td><input id="txtStaffEntersDay" type="text" name="txtStaffEntersDay" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>民族:</td>
+                            <td><input id="txtStaffNation" name="txtStaffNation" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                            <td>离职日期:</td>
+                            <td><input id="txtStaffLeavesDay" type="text" name="txtStaffLeavesDay" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>职位:</td>
+                            <td><input id="txtStaffPosition" name="txtStaffPosition" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                            <td>办公电话:</td>
+                            <td><input id="txtStaffOfficePhone" type="text" name="txtStaffOfficePhone" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>职称:</td>
+                            <td><input id="txtStaffTitle" name="txtStaffTitle" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                            <td>分机号码:</td>
+                            <td><input id="txtStaffExtNumber" type="text" name="txtStaffExtNumber" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>手机:</td>
+                            <td><input id="txtStaffCellPhone" name="txtStaffCellPhone" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                            <td>家庭电话:</td>
+                            <td><input id="txtStaffFamilyPhone" type="text" name="txtStaffFamilyPhone" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><input id="txtStaffEmail" name="txtStaffEmail" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                            <td>邮政编码:</td>
+                            <td><input id="txtStaffZipCode" type="text" name="txtStaffZipCode" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>备注:</td>
+                            <td><input id="txtaStaffRemark" name="txtaStaffRemark" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                            <td>家庭地址:</td>
+                            <td><input id="txtaStaffAddress" type="text" name="txtaStaffAddress" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="staffwin" title=" " style="width:594px; height:438px;"></div>
+        <div id="staffwin1" title=" " style="width:330px;"></div>
+        <script type="text/javascript" src="~/Areas/SystemSecurity/Content/Scripts/staffmgr.js"></script>
+        <script type="text/javascript">
+
+            function staffwinclose()
+            {
+                $("#staffwin").window("close");
+                Staffmgr.departmentpanelClose();
+                Staffmgr.staffpanelClose();
+                Staffmgr.LoadTree();
+                Staffmgr.BtnDisable();
+            }
+
+            function staffPwdWinclose() {
+                $("#staffwin1").window("close");
+                Staffmgr.departmentpanelClose();
+                Staffmgr.staffpanelClose();
+                Staffmgr.LoadTree();
+                Staffmgr.BtnDisable();
+            }
+
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Permission</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/icon.css">
+    <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <div>
+        <input type="hidden" value="@ViewBag.loginId" id="loginId" />
+        <ul id="roles-easyui-tree"></ul>
+        <div style="padding-left:23px; padding-top:13px;"><input type="button" id="rolesBtnOK" value="确定" /></div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    $(function () {
+        //角色赋权
+        $("#rolesBtnOK").bind("click", function () {
+            //获取肯定权限 以 | 隔开
+            var nodes = $("#roles-easyui-tree").tree('getChecked');
+            if (nodes.length > 0) {
+                var loginId = $("#loginId").val();
+                var grantRoles='';
+                $.each(nodes, function (i, n) { grantRoles += "|" + n.id });
+                $.post('/StaffMgr/RolesUpdate',{Id:loginId,sRoleIds:grantRoles}, function (data) {
+                    if (data == "1") {
+                        parent.staffPwdWinclose();
+                    }
+                    else { alert("error"); }
+                })
+            }
+            else { alert('请选择权限'); }
+        })
+        //绑定tree
+        $("#roles-easyui-tree").tree({
+            url: '/StaffMgr/RolesTree/' + $("#loginId").val(),
+            checkbox: true,
+            lines:true,
+            onlyLeafCheck: true,
+            method: 'post'
+        })
+    })
+
+</script>

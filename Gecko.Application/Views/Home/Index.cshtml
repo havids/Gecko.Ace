@@ -1,0 +1,123 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/color.css">
+    <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.easyui.min.js"></script>
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'north',border:true" style="height:79px;background-color:#ccc;background:url('/Content/images/header.gif') repeat-x;margin-bottom:6px;">
+        <div style="float:left; padding-left:13px;"><h1>&nbsp;&nbsp;JQueryEasyUI后台框架</h1></div>
+        <div style="float:right; padding-right:19px; font-size:13px; line-height:70px;">
+            <a href="javascript:void(0);" id="btnpwd">修改密码</a>
+            &nbsp;&nbsp;&nbsp;
+            <a href="javascript:void(0);" id="btnloginout">退出系统</a> 
+        </div>
+    </div>
+    <div data-options="region:'west',split:true" title="导航" style="width:230px; padding:6px; ">
+        <ul class="easyui-tree" id="easyuitree">正在加载...</ul>
+    </div>
+    <div id="content" region="center" data-options="border:false">
+        <div id="tt" class="easyui-tabs tabs-container easyui-fluid" fit="true" border="true" plain="true">
+            <div class="tabs-header tabs-header-plain tabs-header-noborder" title="welcome" style="padding:10px;">
+                <div>welcome</div>
+            </div>
+        </div>
+    </div>
+    <div data-options="region:'south',split:false" style="height:1px;"></div>
+    <div id="staffwin1" style="width:330px;"></div>
+</body>
+</html>
+<script type="text/javascript">
+
+    $(function () {
+        $('#staffwin1').window({
+            collapsible: false,
+            minimizable: false,
+            maximizable: false,
+            top: 230,
+            modal: true,
+            closed: true
+        });
+        //menu 绑定
+        $("#easyuitree").tree({
+            url: '/Home/MenuInfo',
+            method:'get',
+            onClick: function (node) {
+                //var childLength = $('#easyuitree').tree('getChildren', node.target).length;
+                if (node.suburl.indexOf('customer') != -1 || node.suburl.indexOf('resource') != -1 || node.suburl.indexOf('regist') != -1) {
+                    
+                    openiframe(node.text, node.suburl);
+                }
+                else
+                {
+                    open1(node.text, node.suburl);
+                }
+            }
+        });
+        //登出
+        $("#btnloginout").bind("click", function () {
+            if (confirm("确定要登出系统?"))
+            {
+                window.location.href = '/logon/Logout';
+            }
+        })
+        //修改密码绑定
+        $("#btnpwd").bind("click", function () {
+            var sId = '@SessionUtil.GetStaffSession().LoginId';
+            $("#staffwin1").panel("setTitle", "修改密码");
+            var content = "<iframe  id=\"staffmgr_iframe\" name=\"staffmgr_iframe\" height=\"196px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/StaffMgr/ChangePassword/" + sId + "\"></iframe>";
+            $("#staffwin1").html(content);
+            $("#staffwin1").window("open");
+        })
+
+    })
+
+    function open1(text, plugin) {
+        if ($('#tt').tabs('exists', text)) {
+            $('#tt').tabs('select', text);
+        } else {
+            $('#tt').tabs('add', {
+                title: text,
+                href: plugin,
+                closable: true,
+                extractor: function (data) {
+                    data = $.fn.panel.defaults.extractor(data);
+                    var tmp = $('<div></div>').html(data);
+                    data = tmp.find('#content').html();
+                    tmp.remove();
+                    return data;
+                }
+            });
+        }
+    }
+
+    function openiframe(title, plugin, icon) {
+        var tt = $('#tt');
+        if (tt.tabs('exists', title)) {
+            tt.tabs('select', title);
+        } else {
+            if (plugin) {
+                var content = '<iframe frameborder="0" src="' + plugin + '" style="width:100%;height:100%;float:left;"></iframe>';
+            } else {
+                var content = '未实现';
+            }
+            tt.tabs('add', {
+                title: title,
+                closable: true,
+                content: content,
+                iconCls: icon || 'icon-default'
+            });
+        }
+    }
+
+</script>

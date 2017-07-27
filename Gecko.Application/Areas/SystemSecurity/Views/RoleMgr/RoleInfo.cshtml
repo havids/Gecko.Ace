@@ -1,0 +1,63 @@
+﻿@model Gecko.Security.DTO.RoleDTO
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RoleDTO</title>
+    <link type="text/css" href="~/Content/css/info.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="~/Content/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Content/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Content/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Content/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript">
+
+        function roletypesuccess(data) {
+            if (data == "1") {
+                alert("操作成功");
+                parent.rolemgrwinclose();
+            }
+            else { alert(data); }
+        }
+
+    </script>
+    <div class="container">
+        @using (Ajax.BeginForm("roleInfo", "roleMgr", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "roletypesuccess(data);" }))
+        {
+            <input name="Id" type="hidden" value="@Model.Id">
+            @Html.HiddenFor(model => model.RoleTypeId)
+            <table>
+                <tr>
+                    <td>名称:</td>
+                    <td>
+                        @Html.EditorFor(model => model.Name)<span class="requiredspan">&nbsp;*</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>排序ID:</td>
+                    <td>
+                        @Html.EditorFor(model => model.OrderId)<span class="requiredspan">&nbsp;*</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>备注:</td>
+                    <td>
+                        @Html.EditorFor(model => model.Remark)<span class="requiredspan">&nbsp;*</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="确定" /></td>
+                </tr>
+            </table>
+        }
+    </div>
+</body>
+</html>

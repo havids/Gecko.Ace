@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Gecko.Security.Domain" assembly="Gecko.Security">
+  <class name="RoleType" table="PB_ROLE_TYPE" proxy="RoleType">
+
+    <cache usage="read-write" />
+
+    <id name="Id" column="PB_ID" type="String" length="15">
+      <generator class="assigned" />
+    </id>
+
+    <property name="Name" column="PB_NAME" type="String" not-null="true" length="40" />
+    <property name="Remark" column="PB_REMARK" type="String" length="200" />
+    <property name="OrderId" column="PB_ORDER_ID" type="Int32" not-null="true" />
+
+    <many-to-one name="ParentRoleType" column="PB_PARENT_ID" class="RoleType" />
+
+    <bag name="SubRoleTypes" inverse="true" order-by="PB_ORDER_ID" lazy="true">
+      <cache usage="read-write" />
+      <key column="PB_PARENT_ID" />
+      <one-to-many class="RoleType" />
+    </bag>
+    
+    <bag name="Roles" inverse="true" order-by="PB_ORDER_ID" lazy="true">
+      <cache usage="read-write" />
+      <key column="PB_ROLE_TYPE_ID" />
+      <one-to-many class="Role" />
+    </bag>
+
+  </class>
+</hibernate-mapping>

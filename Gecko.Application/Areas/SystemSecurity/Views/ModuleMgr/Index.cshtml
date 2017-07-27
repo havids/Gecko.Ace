@@ -1,0 +1,81 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/icon.css">
+    <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <div id="content" style="width:1000px; height:300px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'north',split:true,border:false" style="height:50px">
+                <div style="padding:9px;width:500px;">
+                    <a href="javascript:void(0);" data-options="disabled:true" id="mbtnAddModuleType" class="easyui-linkbutton" iconcls="icon-add">新增分类</a>
+                    <a href="javascript:void(0);" data-options="disabled:true" id="mbtnAddModule" class="easyui-linkbutton" iconcls="icon-add">新增模块</a>
+                    <a href="javascript:void(0);" data-options="disabled:true" id="mbtnEdit" class="easyui-linkbutton" iconcls="icon-edit">编辑</a>
+                    <a href="javascript:void(0);" data-options="disabled:true" id="mbtnDel" class="easyui-linkbutton" iconcls="icon-cancel">删除</a>
+                </div>
+            </div>
+            <div data-options="region:'west',split:true,border:false" style="width:200px">
+                <ul id="modulemgr-easyui-tree"></ul>
+            </div>
+            <div data-options="region:'center',border:false" style="padding-top:30px; padding-left:30px;">
+                <div id="modulemgrpanel" class="easyui-panel" title=" " data-options="noheader:true,border:false" closed="true" style="width:400px">
+                    <table style="border-collapse:separate; border-spacing:0px 10px;">
+                        <tr id="trtxtModuleTag">
+                            <td>标示:</td>
+                            <td><input id="txtModuleTag" type="text" name="txtModuleTag" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>名称:</td>
+                            <td><input id="txtModuleName" name="txtModuleName" type="text" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>排序ID:</td>
+                            <td><input id="txtModuleOrderId" name="txtModuleOrderId" type="text" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>备注:</td>
+                            <td><input id="txtModuleRemark" name="txtModuleRemark" type="text" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr id="trtxtModuleAddress">
+                            <td>地址:</td>
+                            <td><input id="txtModuleAddress" style="width:280px;" name="txtModuleAddress" type="text" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr id="trtxtModuleDisable">
+                            <td>已禁用:</td>
+                            <td><span id="txtModuleDisable"></span></td>
+                        </tr>
+                        <tr id="trtxtModuleSecurity">
+                            <td>权限:</td>
+                            <td><div id="divRights" style="width:300px;height:160px;"></div></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="modulewin" title=" " style="width:330px;">
+        </div>
+        <script type="text/javascript" src="~/Areas/SystemSecurity/Content/Scripts/modulemgr.js"></script>
+        <script type="text/javascript">
+
+            function modulemgrwinclose()
+            {
+                $("#modulewin").window("close");
+                ModuleMgr.panelClose();
+                ModuleMgr.LoadTree();
+                ModuleMgr.BtnDisable();
+            }
+
+        </script>
+    </div>
+</body>
+</html>

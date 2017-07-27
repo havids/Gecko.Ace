@@ -1,0 +1,77 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/easyui/easyui.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/color.css">
+    <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <div id="content">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'north',split:true,border:false" style="height:50px">
+                <div style="padding:9px;width:500px;">
+                    <a href="javascript:void(0);" data-options="disabled:true" id="d_btnAdd" class="easyui-linkbutton" iconcls="icon-add">新增</a>
+                    <a href="javascript:void(0);" data-options="disabled:true" id="d_btnEdit" class="easyui-linkbutton" iconcls="icon-edit">编辑</a>
+                    <a href="javascript:void(0);" data-options="disabled:true" id="d_btnDel" class="easyui-linkbutton" iconcls="icon-cancel">删除</a>
+                </div>
+            </div>
+            <div data-options="region:'west',split:true,border:false" style="width:200px;padding:13px">
+                <ul id="department-easyui-tree">正在加载...</ul>
+            </div>
+            <div data-options="region:'center',border:false" style="padding-top:30px; padding-left:30px;">
+                <div id="departmentpanel" class="easyui-panel" title=" " data-options="noheader:true,border:false" closed="true">
+                    <table style="border-collapse:separate; border-spacing:0px 10px;">
+                        <tr>
+                            <td>名称:</td>
+                            <td><input id="d_txtName" type="text" name="txtName" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>排序ID:</td>
+                            <td><input id="d_txtOrderId" name="txtOrderId" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>电话号码:</td>
+                            <td><input id="d_txtPhone" name="txtPhone" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>分机号码:</td>
+                            <td><input id="d_txtExtNumber" name="txtExtNumber" data-options="readonly:true" type="text" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>传真号码:</td>
+                            <td><input id="d_txtFax" name="txtFax" type="text" data-options="readonly:true" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>备注:</td>
+                            <td><input id="d_txtaRemark" name="txtaRemark" data-options="readonly:true" type="text" class="easyui-textbox" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="departmentwin" title=" " style="width:330px;">
+        </div>
+        <script type="text/javascript" src="~/Areas/SystemSecurity/Content/Scripts/departmentmgr.js"></script>
+        <script type="text/javascript">
+
+            function departmentwinclose()
+            {
+                $("#departmentwin").window("close");
+                Departmentmgr.panelClose();
+                Departmentmgr.LoadTree();
+                Departmentmgr.BtnDisable();
+            }
+
+        </script>
+    </div>
+</body>
+</html>

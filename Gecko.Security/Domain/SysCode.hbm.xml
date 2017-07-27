@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Gecko.Security.Domain" assembly="Gecko.Security">
+  <class name="SysCode" table="PB_SYSCODE" proxy="SysCode">
+
+    <cache usage="read-write" />
+
+    <id name="Id" column="PB_ID" type="String" length="15">
+      <generator class="assigned" />
+    </id>
+
+    <property name="Tag" column="PB_TAG" type="String" not-null="true" length="40" />
+    <property name="Name" column="PB_NAME" type="String" not-null="true" length="40" />
+    <property name="Remark" column="PB_REMARK" type="String" length="200" />
+    <property name="OrderId" column="PB_ORDER_ID" type="Int32" not-null="true" />
+
+    <many-to-one name="SysCodeTypee" column="PB_SYSCODE_TYPE_ID" class="SysCodeType" />
+
+  </class>
+</hibernate-mapping>

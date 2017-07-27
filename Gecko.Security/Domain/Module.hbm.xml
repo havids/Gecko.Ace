@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Gecko.Security.Domain" assembly="Gecko.Security">
+  <class name="Module" table="PB_MODULE" proxy="Module">
+
+    <cache usage="read-write" />
+
+    <id name="Id" column="PB_ID" type="String" length="15">
+      <generator class="assigned" />
+    </id>
+
+    <property name="Tag" column="PB_TAG" type="String" not-null="true" length="40" />
+    <property name="Name" column="PB_NAME" type="String" not-null="true" length="40" />
+    <property name="ModuleUrl" column="PB_MODULE_URL" type="String" length="200" />
+    <property name="Remark" column="PB_REMARK" type="String" length="200" />
+    <property name="Disabled" column="PB_DISABLED" type="Int32" not-null="true" />
+    <property name="OrderId" column="PB_ORDER_ID" type="Int32" not-null="true" />
+
+    <many-to-one name="ModuleType" column="PB_MODULE_TYPE_ID" class="ModuleType" />
+
+    <map name="ModuleRights" inverse="true" lazy="true">
+      <cache usage="read-write" />
+      <key column="PB_MODULE_ID" />
+      <index column="PB_RIGHT_TAG" type="String" length="20" />
+      <one-to-many class="ModuleRight" />
+    </map>
+
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,68 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/icon.css">
+    <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <div id="content" style="width:1000px; height:300px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'north',split:true,border:false" style="height:50px">
+                <div style="padding:9px;width:500px;">
+                    <a href="javascript:void(0);" data-options="disabled:true" id="rbtnAddType" class="easyui-linkbutton" iconcls="icon-add">新增分类</a>
+                    <a href="javascript:void(0);" data-options="disabled:true" id="rbtnAdd" class="easyui-linkbutton" iconcls="icon-add">新增角色</a>
+                    <a href="javascript:void(0);" data-options="disabled:true" id="rbtnSecurity" class="easyui-linkbutton" iconcls="icon-lock">授权</a>
+                    <a href="javascript:void(0);" data-options="disabled:true" id="rbtnEdit" class="easyui-linkbutton" iconcls="icon-edit">编辑</a>
+                    <a href="javascript:void(0);" data-options="disabled:true" id="rbtnDel" class="easyui-linkbutton" iconcls="icon-cancel">删除</a>
+                </div>
+            </div>
+            <div data-options="region:'west',split:true,border:false" style="width:200px">
+                <ul id="rolemgr-easyui-tree">
+                    正在加载...
+                </ul>
+            </div>
+            <div data-options="region:'center',border:false" style="padding-top:30px; padding-left:30px;">
+                <div id="rolemgrpanel" class="easyui-panel" title=" " data-options="noheader:true,border:false" closed="true" style="width:400px">
+                    <table style="border-collapse:separate; border-spacing:0px 10px;">
+                        <tr>
+                            <td>名称:</td>
+                            <td><input id="txtRoleName" name="txtRoleName" type="text" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>排序ID:</td>
+                            <td><input id="txtRoleOrderId" name="txtRoleOrderId" type="text" class="easyui-textbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>备注:</td>
+                            <td><input id="txtRoleRemark" name="txtRoleRemark" type="text" class="easyui-textbox" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="rolewin" title=" " style="width:330px;">
+        </div>
+        <script type="text/javascript" src="~/Areas/SystemSecurity/Content/Scripts/rolemgr.js"></script>
+        <script type="text/javascript">
+
+            function rolemgrwinclose()
+            {
+                $("#rolewin").window("close");
+                RoleMgr.panelClose();
+                RoleMgr.LoadTree();
+                RoleMgr.BtnDisable();
+            }
+
+        </script>
+    </div>
+</body>
+</html>

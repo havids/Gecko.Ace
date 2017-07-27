@@ -1,0 +1,100 @@
+﻿@model Gecko.Security.DTO.ModuleDTO
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ModuleTypeDTO</title>
+    <link type="text/css" href="~/Content/css/info.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="~/Content/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Content/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Content/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Content/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript">
+
+        function moduletypesuccess(data) {
+            if (data == "1") {
+                alert("操作成功");
+                parent.modulemgrwinclose();
+            }
+            else { alert(data); }
+        }
+
+    </script>
+    <div class="container" style="width:100%;">
+        @using (Ajax.BeginForm("ModuleInfo", "ModuleMgr", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "moduletypesuccess(data);" }))
+        {
+            <input name="Id" type="hidden" value="@Model.Id">
+            @Html.HiddenFor(model => model.ModuleTypeId)
+            <table>
+                <tr>
+                    <td>标示:</td>
+                    <td>
+                        @Html.EditorFor(model => model.Tag)<span class="requiredspan">&nbsp;*</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>名称:</td>
+                    <td>
+                        @Html.EditorFor(model => model.Name)<span class="requiredspan">&nbsp;*</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>排序ID:</td>
+                    <td>
+                        @Html.EditorFor(model => model.OrderId)<span class="requiredspan">&nbsp;*</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>备注:</td>
+                    <td>
+                        @Html.TextAreaFor(model => model.Remark)
+                    </td>
+                </tr>
+                <tr>
+                    <td>地址:</td>
+                    <td>
+                        @Html.TextAreaFor(model => model.ModuleUrl, new { style="width:299px;" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>已禁用:</td>
+                    <td>
+                        @Html.CheckBox("Disabled", Model.Disabled )
+                    </td>
+                </tr>
+                <tr>
+                    <td>权限:</td>
+                    <td>
+                        <div id="divRights">
+                            @foreach (string s in Model.ModuleRights)
+                            {
+                                var rights = s.Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
+                                if (rights.Length == 4)
+                                {
+                                    <div>@rights[0].ToString()<input type="checkbox" value="@rights[1].ToString()" name="moduleRights" checked id="@rights[2].ToString()" /></div>
+                                }
+                                else
+                                {
+                                    <div>@rights[0].ToString()<input type="checkbox" value="@rights[1].ToString()" name="moduleRights" id="@rights[2].ToString()" /></div>
+                                }
+                            }
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="确定" /></td>
+                </tr>
+            </table>
+        }
+    </div>
+</body>
+</html>

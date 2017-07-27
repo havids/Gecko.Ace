@@ -1,0 +1,81 @@
+﻿@model Gecko.Security.DTO.DepartmentDTO
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SysCodeInfo</title>
+    <link type="text/css" href="~/Content/css/info.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="~/Content/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Content/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Content/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Content/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript">
+
+        function departmentsuccess(data) {
+            if (data == "1") {
+                alert("操作成功");
+                parent.departmentwinclose();
+            }
+            else { alert(data); }
+        }
+
+    </script>
+    <div class="container">
+        @using (Ajax.BeginForm("DepartMentInfo", "DepartMentMgr", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "departmentsuccess(data);" }))
+        {
+            <input name="Id" type="hidden" value="@Model.Id">
+            @Html.HiddenFor(model => model.ParentDepartmentId)
+            <table>
+                <tr>
+                    <td>名称:</td>
+                    <td>
+                        @Html.EditorFor(model => model.Name)<span class="requiredspan">&nbsp;*</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>排序ID:</td>
+                    <td>
+                        @Html.EditorFor(model => model.OrderId)<span class="requiredspan">&nbsp;*</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>电话号码:</td>
+                    <td>
+                        @Html.EditorFor(model => model.Phone)
+                    </td>
+                </tr>
+                <tr>
+                    <td>分机号码:</td>
+                    <td>
+                        @Html.EditorFor(model => model.ExtNumber)
+                    </td>
+                </tr>
+                <tr>
+                    <td>传真号码:</td>
+                    <td>
+                        @Html.EditorFor(model => model.Fax)
+                    </td>
+                </tr>
+                <tr>
+                    <td>备注:</td>
+                    <td>
+                        @Html.EditorFor(model => model.Remark)
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="确定" /></td>
+                </tr>
+            </table>
+        }
+    </div>
+</body>
+</html>

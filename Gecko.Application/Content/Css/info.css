@@ -1,0 +1,38 @@
+﻿body {
+    font-size:12px;
+}
+
+.container {
+    width:260px;padding:3px; margin:0 auto; height:auto;
+}
+.container1 {
+    width:536px;padding:3px; margin:0 auto; height:auto;
+}
+.requiredspan {
+    color:#E24939;
+    font-weight:bold;
+}
+
+.container table {
+        border-collapse:separate;
+    border-spacing:0px 10px;
+}
+
+.tablestyle {
+    width:536px;
+
+}
+.tablestyle td {
+    /*td里面文字自动换行*/
+    word-wrap:break-word;
+    text-align:left;
+}
+.tablestyle thead td.td1 {
+    width:50px;
+}
+.tablestyle thead td.td2 {
+    width:200px;
+}
+.tablestyle thead td.td3{
+    width:60px;
+}

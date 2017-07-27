@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Gecko.Security.Domain" assembly="Gecko.Security">
+  <class name="Department" table="PB_DEPARTMENT" proxy="Department">
+
+    <cache usage="read-write" />
+
+    <id name="Id" column="PB_ID" type="String" length="15">
+      <generator class="assigned" />
+    </id>
+
+    <property name="Name" column="PB_NAME" type="String" not-null="true" length="40" />
+    <property name="Phone" column="PB_PHONE" type="String" length="40" />
+    <property name="ExtNumber" column="PB_EXT_NUMBER" type="String" length="20" />
+    <property name="Fax" column="PB_FAX" type="String" length="40" />
+    <property name="Remark" column="PB_REMARK" type="String" length="200" />
+    <property name="OrderId" column="PB_ORDER_ID" type="Int32" not-null="true" />
+
+    <many-to-one name="ParentDepartment" column="PB_PARENT_ID" class="Department"/>
+
+    <bag name="SubDepartments" inverse="true" order-by="PB_PARENT_ID" lazy="true">
+      <cache usage="read-write" />
+      <key column="PB_PARENT_ID" />
+      <one-to-many class="Department" />
+    </bag>
+    
+    <bag name="Staff" inverse="true" order-by="PB_DISABLED, PB_ORDER_ID" lazy="true">
+      <cache usage="read-write" />
+      <key column="PB_DEPARTMENT_ID" />
+      <one-to-many class="Staff" />
+    </bag>
+
+  </class>
+</hibernate-mapping>
