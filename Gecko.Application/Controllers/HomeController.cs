@@ -9,6 +9,10 @@ using System.Collections;
 using Gecko.Security.Domain;
 using Gecko.Application.Areas.SystemSecurity.Models;
 
+using Newtonsoft.Json;
+using System.Text;
+using Newtonsoft.Json.Serialization;
+
 namespace Gecko.Application.Controllers
 {
     [LoginFilter]
@@ -22,18 +26,17 @@ namespace Gecko.Application.Controllers
             return View();
         }
 
-                /// <summary>
+        /// <summary>
         /// 获取左侧 Menu 列表
         /// </summary>
         /// <param name="webtagId">
         /// 
         /// </param>
         /// <returns></returns>
-        public JsonResult MenuInfo(string Id)
+        public ActionResult MenuInfo(string Id)
         {
             //获取当前用户
             Staff staff = Gecko.Security.NHHelper.Db.Session.Load(typeof(Staff), SessionUtil.GetStaffSession().LoginId) as Staff;
-            //Staff staff = Anole.Security.NHHelper.Db.Session.Load(typeof(Staff),"admin") as Staff;
             IList moduleList = null;
             //if (staff.IsInnerUser == 1)//如果是内置用户 
             //平台如果集成单点登录 则获取当前的平台Id 加载对应的module列表
@@ -41,7 +44,13 @@ namespace Gecko.Application.Controllers
             //moduleList = Anole.Security.Service.ModuleTypeSrv.GetTopModuleType("0000000023");
             moduleList = Gecko.Security.Service.ModuleTypeSrv.GetAllTopModuleType();
             var nodeTypeList = GetModuleTypeList(moduleList, staff);
-            return Json(nodeTypeList, JsonRequestBehavior.AllowGet);
+
+            return new ContentResult
+            {
+                ContentType = "application/json",
+                Content = JsonConvert.SerializeObject(nodeTypeList, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() }),
+                ContentEncoding = Encoding.UTF8
+            };
         }
 
         //返回模块分类 模块 序列化List
@@ -59,7 +68,7 @@ namespace Gecko.Application.Controllers
                 {
                     ntype.children = GetModuleTypeList(sub.SubModuleTypes, staff);
                 }
-                
+
                 if (sub.Modules.Count > 0)
                 {
                     ntype.children = ntype.children ?? new List<NodeType>();
