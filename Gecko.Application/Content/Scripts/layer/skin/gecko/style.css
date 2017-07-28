@@ -1,0 +1,16 @@
+﻿
+body .geckoskin .layui-layer-title{ -webkit-box-sizing:content-box;
+ -moz-box-sizing:content-box;
+ box-sizing:content-box;
+ position:relative;
+ min-height:38px;
+ background:repeat-x #f7f7f7;
+ background-image:-webkit-linear-gradient(top,#FFF 0,#EEE 100%);
+ background-image:-o-linear-gradient(top,#FFF 0,#EEE 100%);
+ background-image:linear-gradient(to bottom,#FFF 0,#EEE 100%);
+ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffeeeeee', GradientType=0);
+ color:#669FC7;
+ border-bottom:1px solid #DDD;
+ padding-left:12px}
+body .geckoskin .layui-layer-btn{}
+body .geckoskin .layui-layer-btn a{}
