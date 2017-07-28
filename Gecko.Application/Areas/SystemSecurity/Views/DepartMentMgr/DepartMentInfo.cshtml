@@ -9,8 +9,12 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>SysCodeInfo</title>
-    <link type="text/css" href="~/Content/css/info.css" rel="stylesheet" />
+    <title>部门管理</title>
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="~/Content/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <!-- ace styles -->
+    <link rel="stylesheet" href="/content/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 </head>
 <body>
     <script src="~/Content/Scripts/jquery-1.8.2.min.js"></script>
@@ -28,46 +32,82 @@
         }
 
     </script>
-    <div class="container">
-        @using (Ajax.BeginForm("DepartMentInfo", "DepartMentMgr", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "departmentsuccess(data);" }))
+    <div class="container widget-main">
+        @using (Ajax.BeginForm("DepartMentInfo", "DepartMentMgr", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "departmentsuccess(data);" },new { @class= "form-horizontal" }))
         {
             <input name="Id" type="hidden" value="@Model.Id">
             @Html.HiddenFor(model => model.ParentDepartmentId)
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 名称: </label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "col-xs-6 col-sm-5" })<span class="requiredspan">&nbsp;*</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 排序ID: </label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.OrderId, new { @class = "col-xs-6 col-sm-5" })<span class="requiredspan">&nbsp;*</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 电话号码: </label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.Phone, new { @class = "col-xs-6 col-sm-5" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 分机号码: </label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.ExtNumber, new { @class = "col-xs-6 col-sm-5" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 传真号码: </label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.Fax, new { @class = "col-xs-6 col-sm-5" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 备注: </label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(model => model.Remark, new { @class = "col-xs-6 col-sm-5" })
+                </div>
+            </div>
             <table>
                 <tr>
                     <td>名称:</td>
                     <td>
-                        @Html.EditorFor(model => model.Name)<span class="requiredspan">&nbsp;*</span>
+                        
                     </td>
                 </tr>
                 <tr>
                     <td>排序ID:</td>
                     <td>
-                        @Html.EditorFor(model => model.OrderId)<span class="requiredspan">&nbsp;*</span>
+                        
                     </td>
                 </tr>
                 <tr>
                     <td>电话号码:</td>
                     <td>
-                        @Html.EditorFor(model => model.Phone)
+                        
                     </td>
                 </tr>
                 <tr>
                     <td>分机号码:</td>
                     <td>
-                        @Html.EditorFor(model => model.ExtNumber)
+                        
                     </td>
                 </tr>
                 <tr>
                     <td>传真号码:</td>
                     <td>
-                        @Html.EditorFor(model => model.Fax)
+                        
                     </td>
                 </tr>
                 <tr>
                     <td>备注:</td>
                     <td>
-                        @Html.EditorFor(model => model.Remark)
+                        
                     </td>
                 </tr>
                 <tr>
