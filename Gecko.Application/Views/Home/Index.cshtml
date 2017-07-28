@@ -1,123 +1,529 @@
 ﻿@{
     Layout = null;
 }
-
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>首页</title>
-    <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/color.css">
-    <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.min.js"></script>
-    <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.easyui.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>Dashboard - Ace Admin</title>
+
+    <meta name="description" content="overview &amp; stats" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="/content/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/content/assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+    <!-- page specific plugin styles -->
+    <!-- text fonts -->
+    <link rel="stylesheet" href="/content/assets/css/fonts.googleapis.com.css" />
+
+    <!-- ace styles -->
+    <link rel="stylesheet" href="/content/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/content/assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
+    <![endif]-->
+    <link rel="stylesheet" href="/content/assets/css/ace-skins.min.css" />
+    <link rel="stylesheet" href="/content/assets/css/ace-rtl.min.css" />
+    <!--[if lte IE 9]>
+      <link rel="stylesheet" href="/content/assets/css/ace-ie.min.css" />
+    <![endif]-->
+    <!-- inline styles related to this page -->
+    <!-- ace settings handler -->
+    <script src="/content/assets/js/ace-extra.min.js"></script>
+
+    <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+    <!--[if lte IE 8]>
+    <script src="/content/assets/js/html5shiv.min.js"></script>
+    <script src="/content/assets/js/respond.min.js"></script>
+    <![endif]-->
 </head>
-<body class="easyui-layout">
-    <div data-options="region:'north',border:true" style="height:79px;background-color:#ccc;background:url('/Content/images/header.gif') repeat-x;margin-bottom:6px;">
-        <div style="float:left; padding-left:13px;"><h1>&nbsp;&nbsp;JQueryEasyUI后台框架</h1></div>
-        <div style="float:right; padding-right:19px; font-size:13px; line-height:70px;">
-            <a href="javascript:void(0);" id="btnpwd">修改密码</a>
-            &nbsp;&nbsp;&nbsp;
-            <a href="javascript:void(0);" id="btnloginout">退出系统</a> 
-        </div>
+
+<body class="no-skin">
+    <div id="navbar" class="navbar navbar-default          ace-save-state">
+        <div class="navbar-container ace-save-state" id="navbar-container">
+            <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+                <span class="sr-only">Toggle sidebar</span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+            </button>
+
+            <div class="navbar-header pull-left">
+                <a href="index.html" class="navbar-brand">
+                    <small>
+                        <i class="fa fa-leaf"></i>
+                        Ace Admin
+                    </small>
+                </a>
+            </div>
+
+            <div class="navbar-buttons navbar-header pull-right" role="navigation">
+                <ul class="nav ace-nav">
+                    <li class="grey dropdown-modal">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <i class="ace-icon fa fa-tasks"></i>
+                            <span class="badge badge-grey">4</span>
+                        </a>
+
+                        <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                            <li class="dropdown-header">
+                                <i class="ace-icon fa fa-check"></i>
+                                4 Tasks to complete
+                            </li>
+
+                            <li class="dropdown-content">
+                                <ul class="dropdown-menu dropdown-navbar">
+                                    <li>
+                                        <a href="#">
+                                            <div class="clearfix">
+                                                <span class="pull-left">Software Update</span>
+                                                <span class="pull-right">65%</span>
+                                            </div>
+
+                                            <div class="progress progress-mini">
+                                                <div style="width:65%" class="progress-bar"></div>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">
+                                            <div class="clearfix">
+                                                <span class="pull-left">Hardware Upgrade</span>
+                                                <span class="pull-right">35%</span>
+                                            </div>
+
+                                            <div class="progress progress-mini">
+                                                <div style="width:35%" class="progress-bar progress-bar-danger"></div>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">
+                                            <div class="clearfix">
+                                                <span class="pull-left">Unit Testing</span>
+                                                <span class="pull-right">15%</span>
+                                            </div>
+
+                                            <div class="progress progress-mini">
+                                                <div style="width:15%" class="progress-bar progress-bar-warning"></div>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">
+                                            <div class="clearfix">
+                                                <span class="pull-left">Bug Fixes</span>
+                                                <span class="pull-right">90%</span>
+                                            </div>
+
+                                            <div class="progress progress-mini progress-striped active">
+                                                <div style="width:90%" class="progress-bar progress-bar-success"></div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-footer">
+                                <a href="#">
+                                    See tasks with details
+                                    <i class="ace-icon fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="purple dropdown-modal">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <i class="ace-icon fa fa-bell icon-animated-bell"></i>
+                            <span class="badge badge-important">8</span>
+                        </a>
+
+                        <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+                            <li class="dropdown-header">
+                                <i class="ace-icon fa fa-exclamation-triangle"></i>
+                                8 Notifications
+                            </li>
+
+                            <li class="dropdown-content">
+                                <ul class="dropdown-menu dropdown-navbar navbar-pink">
+                                    <li>
+                                        <a href="#">
+                                            <div class="clearfix">
+                                                <span class="pull-left">
+                                                    <i class="btn btn-xs no-hover btn-pink fa fa-comment"></i>
+                                                    New Comments
+                                                </span>
+                                                <span class="pull-right badge badge-info">+12</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">
+                                            <i class="btn btn-xs btn-primary fa fa-user"></i>
+                                            Bob just signed up as an editor ...
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">
+                                            <div class="clearfix">
+                                                <span class="pull-left">
+                                                    <i class="btn btn-xs no-hover btn-success fa fa-shopping-cart"></i>
+                                                    New Orders
+                                                </span>
+                                                <span class="pull-right badge badge-success">+8</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">
+                                            <div class="clearfix">
+                                                <span class="pull-left">
+                                                    <i class="btn btn-xs no-hover btn-info fa fa-twitter"></i>
+                                                    Followers
+                                                </span>
+                                                <span class="pull-right badge badge-info">+11</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-footer">
+                                <a href="#">
+                                    See all notifications
+                                    <i class="ace-icon fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="green dropdown-modal">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
+                            <span class="badge badge-success">5</span>
+                        </a>
+
+                        <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                            <li class="dropdown-header">
+                                <i class="ace-icon fa fa-envelope-o"></i>
+                                5 Messages
+                            </li>
+
+                            <li class="dropdown-content">
+                                <ul class="dropdown-menu dropdown-navbar">
+                                    <li>
+                                        <a href="#" class="clearfix">
+                                            <img src="assets/images/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
+                                            <span class="msg-body">
+                                                <span class="msg-title">
+                                                    <span class="blue">Alex:</span>
+                                                    Ciao sociis natoque penatibus et auctor ...
+                                                </span>
+
+                                                <span class="msg-time">
+                                                    <i class="ace-icon fa fa-clock-o"></i>
+                                                    <span>a moment ago</span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="clearfix">
+                                            <img src="assets/images/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
+                                            <span class="msg-body">
+                                                <span class="msg-title">
+                                                    <span class="blue">Susan:</span>
+                                                    Vestibulum id ligula porta felis euismod ...
+                                                </span>
+
+                                                <span class="msg-time">
+                                                    <i class="ace-icon fa fa-clock-o"></i>
+                                                    <span>20 minutes ago</span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="clearfix">
+                                            <img src="assets/images/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
+                                            <span class="msg-body">
+                                                <span class="msg-title">
+                                                    <span class="blue">Bob:</span>
+                                                    Nullam quis risus eget urna mollis ornare ...
+                                                </span>
+
+                                                <span class="msg-time">
+                                                    <i class="ace-icon fa fa-clock-o"></i>
+                                                    <span>3:15 pm</span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="clearfix">
+                                            <img src="assets/images/avatars/avatar2.png" class="msg-photo" alt="Kate's Avatar" />
+                                            <span class="msg-body">
+                                                <span class="msg-title">
+                                                    <span class="blue">Kate:</span>
+                                                    Ciao sociis natoque eget urna mollis ornare ...
+                                                </span>
+
+                                                <span class="msg-time">
+                                                    <i class="ace-icon fa fa-clock-o"></i>
+                                                    <span>1:33 pm</span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="clearfix">
+                                            <img src="assets/images/avatars/avatar5.png" class="msg-photo" alt="Fred's Avatar" />
+                                            <span class="msg-body">
+                                                <span class="msg-title">
+                                                    <span class="blue">Fred:</span>
+                                                    Vestibulum id penatibus et auctor  ...
+                                                </span>
+
+                                                <span class="msg-time">
+                                                    <i class="ace-icon fa fa-clock-o"></i>
+                                                    <span>10:09 am</span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-footer">
+                                <a href="inbox.html">
+                                    See all messages
+                                    <i class="ace-icon fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="light-blue dropdown-modal">
+                        <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                            <img class="nav-user-photo" src="assets/images/avatars/user.jpg" alt="Jason's Photo" />
+                            <span class="user-info">
+                                <small>Welcome,</small>
+                                Jason
+                            </span>
+
+                            <i class="ace-icon fa fa-caret-down"></i>
+                        </a>
+
+                        <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                            <li>
+                                <a href="#">
+                                    <i class="ace-icon fa fa-cog"></i>
+                                    Settings
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="profile.html">
+                                    <i class="ace-icon fa fa-user"></i>
+                                    Profile
+                                </a>
+                            </li>
+
+                            <li class="divider"></li>
+
+                            <li>
+                                <a href="#">
+                                    <i class="ace-icon fa fa-power-off"></i>
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div><!-- /.navbar-container -->
     </div>
-    <div data-options="region:'west',split:true" title="导航" style="width:230px; padding:6px; ">
-        <ul class="easyui-tree" id="easyuitree">正在加载...</ul>
-    </div>
-    <div id="content" region="center" data-options="border:false">
-        <div id="tt" class="easyui-tabs tabs-container easyui-fluid" fit="true" border="true" plain="true">
-            <div class="tabs-header tabs-header-plain tabs-header-noborder" title="welcome" style="padding:10px;">
-                <div>welcome</div>
+
+    <div class="main-container ace-save-state" id="main-container">
+        <script type="text/javascript">
+            try { ace.settings.loadState('main-container') } catch (e) { }
+        </script>
+
+        <div id="sidebar" class="sidebar responsive ace-save-state">
+            <script type="text/javascript">
+                try { ace.settings.loadState('sidebar') } catch (e) { }
+            </script>
+
+            <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+                <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+                    <button class="btn btn-success">
+                        <i class="ace-icon fa fa-signal"></i>
+                    </button>
+
+                    <button class="btn btn-info">
+                        <i class="ace-icon fa fa-pencil"></i>
+                    </button>
+
+                    <button class="btn btn-warning">
+                        <i class="ace-icon fa fa-users"></i>
+                    </button>
+
+                    <button class="btn btn-danger">
+                        <i class="ace-icon fa fa-cogs"></i>
+                    </button>
+                </div>
+
+                <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+                    <span class="btn btn-success"></span>
+
+                    <span class="btn btn-info"></span>
+
+                    <span class="btn btn-warning"></span>
+
+                    <span class="btn btn-danger"></span>
+                </div>
+            </div><!-- /.sidebar-shortcuts -->
+            <!---左侧菜单--->
+            <ul class="nav nav-list" id="nav-list"></ul><!-- /.nav-list -->
+            <script id="menuInfoTmpl" type="text/x-jsrender">
+
+                <li class="active">
+                    <a href="javascript:void(0);">
+                        <i class="menu-icon fa fa-tachometer"></i>
+                        <span class="menu-text"> Dashboard </span>
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+                {{for data}}
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-desktop"></i>
+                        <span class="menu-text">
+                            {{:text}}
+                        </span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+
+                    <ul class="submenu">
+
+                        {{for children}}
+                        <li class="">
+                            <a href="{{:suburl}}" class="menuItem" data-id="{{:suburl}}">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                {{:text}}
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                        {{/for}}
+                    </ul>
+                </li>
+                {{/for}}
+            </script>
+            <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+                <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
             </div>
         </div>
-    </div>
-    <div data-options="region:'south',split:false" style="height:1px;"></div>
-    <div id="staffwin1" style="width:330px;"></div>
+
+        <div class="main-content">
+            <div class="main-content-inner">
+                <div class="breadcrumbs ace-save-state content-tabs" id="breadcrumbs">
+                    <button class="roll-nav roll-left tabLeft">
+                        <i class="fa fa-backward"></i>
+                    </button>
+                    <nav class="page-tabs menuTabs">
+                        <div class="page-tabs-content" style="margin-left: 0px;">
+                            <a href="javascript:;" class="menuTab active" data-id="/ace/search.html">首页</a>
+                        </div>
+                    </nav>
+                    <button class="roll-nav roll-right tabRight">
+                        <i class="fa fa-forward" style="margin-left: 3px;"></i>
+                    </button>
+                </div>
+
+                <div id="content-wrapper" class="page-content content-iframe" style="background-color: #f9f9f9; overflow: hidden;">
+                    <div class="mainContent" id="content-main" style="margin: 10px; margin-bottom: 0px; padding: 0;">
+                        <iframe class="ace_iframe" width="100%" height="100%" src="/ace/0.html" frameborder="0" data-id="/ace/search.html"></iframe>
+                    </div><!-- /.ace-settings-container -->
+                </div><!-- /.page-content -->
+            </div>
+        </div><!-- /.main-content -->
+
+
+
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+            <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+        </a>
+    </div><!-- /.main-container -->
+    <!-- basic scripts -->
+    <!--[if !IE]> -->
+    <script src="/content/assets/js/jquery-2.1.4.min.js"></script>
+
+    <!-- <![endif]-->
+    <!--[if IE]>
+    <script src="/content/assets/js/jquery-1.11.3.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        if ('ontouchstart' in document.documentElement) document.write("<script src='‘/content/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+    </script>
+    <script src="/content/assets/js/bootstrap.min.js"></script>
+
+    <!-- page specific plugin scripts -->
+    <!--[if lte IE 8]>
+      <script src="/content/assets/js/excanvas.min.js"></script>
+    <![endif]-->
+    <!--<script src="/content/assets/js/jquery-ui.custom.min.js"></script>-->
+    <!-- ace scripts -->
+    <script src="/content/assets/js/ace-elements.min.js"></script>
+    <script src="/content/assets/js/ace.min.js"></script>
+    <!----tabs-->
+    <script type="text/javascript" src="/content/assets/js/indextab.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/jsrender.min.js"></script>
+    <!-- inline scripts related to this page -->
+    <script type="text/javascript">
+        $(function () {
+
+            $("#content-wrapper").find('.mainContent').height($(window).height() - 130);
+            $(window).resize(function (e) {
+                $("#content-wrapper").find('.mainContent').height($(window).height() - 130);
+            });
+            //menu 绑定
+            $.get("/home/menuinfo", { x: Math.random() }, function (data) {
+                //请求 menu数据
+                var menuTemplate = $.templates("#menuInfoTmpl");
+
+                app = {
+                    data: data
+                };
+
+                var htmlstr = menuTemplate.render(app);
+                $("#nav-list").html(htmlstr);
+                //左侧菜单初始化
+                $.acetab.init();
+            })
+
+        })
+    </script>
 </body>
 </html>
-<script type="text/javascript">
-
-    $(function () {
-        $('#staffwin1').window({
-            collapsible: false,
-            minimizable: false,
-            maximizable: false,
-            top: 230,
-            modal: true,
-            closed: true
-        });
-        //menu 绑定
-        $("#easyuitree").tree({
-            url: '/Home/MenuInfo',
-            method:'get',
-            onClick: function (node) {
-                //var childLength = $('#easyuitree').tree('getChildren', node.target).length;
-                if (node.suburl.indexOf('customer') != -1 || node.suburl.indexOf('resource') != -1 || node.suburl.indexOf('regist') != -1) {
-                    
-                    openiframe(node.text, node.suburl);
-                }
-                else
-                {
-                    open1(node.text, node.suburl);
-                }
-            }
-        });
-        //登出
-        $("#btnloginout").bind("click", function () {
-            if (confirm("确定要登出系统?"))
-            {
-                window.location.href = '/logon/Logout';
-            }
-        })
-        //修改密码绑定
-        $("#btnpwd").bind("click", function () {
-            var sId = '@SessionUtil.GetStaffSession().LoginId';
-            $("#staffwin1").panel("setTitle", "修改密码");
-            var content = "<iframe  id=\"staffmgr_iframe\" name=\"staffmgr_iframe\" height=\"196px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/StaffMgr/ChangePassword/" + sId + "\"></iframe>";
-            $("#staffwin1").html(content);
-            $("#staffwin1").window("open");
-        })
-
-    })
-
-    function open1(text, plugin) {
-        if ($('#tt').tabs('exists', text)) {
-            $('#tt').tabs('select', text);
-        } else {
-            $('#tt').tabs('add', {
-                title: text,
-                href: plugin,
-                closable: true,
-                extractor: function (data) {
-                    data = $.fn.panel.defaults.extractor(data);
-                    var tmp = $('<div></div>').html(data);
-                    data = tmp.find('#content').html();
-                    tmp.remove();
-                    return data;
-                }
-            });
-        }
-    }
-
-    function openiframe(title, plugin, icon) {
-        var tt = $('#tt');
-        if (tt.tabs('exists', title)) {
-            tt.tabs('select', title);
-        } else {
-            if (plugin) {
-                var content = '<iframe frameborder="0" src="' + plugin + '" style="width:100%;height:100%;float:left;"></iframe>';
-            } else {
-                var content = '未实现';
-            }
-            tt.tabs('add', {
-                title: title,
-                closable: true,
-                content: content,
-                iconCls: icon || 'icon-default'
-            });
-        }
-    }
-
-</script>
