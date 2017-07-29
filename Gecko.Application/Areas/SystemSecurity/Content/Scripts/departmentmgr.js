@@ -151,15 +151,16 @@ $(function () {
                 $.post("/DepartMentMgr/DepartMentDel/" + sNode.id, "", function (succeed, textStatus, jqXHR) {
                     if (succeed == "1") {
                         Departmentmgr.LoadTree();
-                        Departmentmgr.panelClose();
+                        layer.msg("操作成功");
                     }
                     if (succeed == "-2") {
-                        alert("提示：当前系统代码分类包含系统代码，所以不能被删除。");
+                        layer.msg("提示：当前系统代码分类包含系统代码，所以不能被删除。");
                     }
                     else if (succeed == "-1") {
                         //alert(Message.serverError);
                     }
                 })
+                layer.close(confirmIndex);
             }, function () {
                 layer.close(confirmIndex);
             });
