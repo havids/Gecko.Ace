@@ -118,37 +118,37 @@
                                                                         <div class="form-group">
                                                                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 名称: </label>
                                                                             <div class="col-sm-9">
-                                                                                <input id="d_txtName" placeholder="名称" class="col-xs-10 col-sm-5" type="text">
+                                                                                <p id="d_txtName" class="form-control-static"></p>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 排序ID: </label>
                                                                             <div class="col-sm-9">
-                                                                                <input id="d_txtOrderId" placeholder="排序" class="col-xs-10 col-sm-5" type="text">
+                                                                                <p id="d_txtOrderId" class="form-control-static"></p>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 电话号码: </label>
                                                                             <div class="col-sm-9">
-                                                                                <input id="d_txtPhone" placeholder="电话号码" class="col-xs-10 col-sm-5" type="text">
+                                                                                <p id="d_txtPhone" class="form-control-static"></p>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 分机号码: </label>
                                                                             <div class="col-sm-9">
-                                                                                <input id="d_txtExtNumber" placeholder="分机号码" class="col-xs-10 col-sm-5" type="text">
+                                                                                <p id="d_txtExtNumber" class="form-control-static"></p>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 传真号码: </label>
                                                                             <div class="col-sm-9">
-                                                                                <input id="d_txtFax" placeholder="传真号码" class="col-xs-10 col-sm-5" type="text">
+                                                                                <p id="d_txtFax" class="form-control-static"></p>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 备注: </label>
                                                                             <div class="col-sm-9">
-                                                                                <input id="d_txtaRemark" placeholder="备注" class="col-xs-10 col-sm-5" type="text">
+                                                                                <p id="d_txtaRemark" class="form-control-static"></p>
                                                                             </div>
                                                                         </div>
                                                                     </form>
@@ -181,22 +181,10 @@
 
 <script type="text/javascript">
 
-
-
-    //layer.open({
-    //    type: 2,
-    //    skin: 'geckoskin',
-    //    area: ['700px', '450px'],
-    //    fixed: false, //不固定
-    //    maxmin: true,
-    //    content: '/SystemSecurity/DepartMentMgr/DepartMentCreate'
-    //});
-
     function departmentwinclose() {
-        //$("#departmentwin").window("close");
-        //Departmentmgr.panelClose();
+        layer.closeAll();
         Departmentmgr.LoadTree();
-        //Departmentmgr.BtnDisable();
+        layer.msg("操作成功", { time: 1000 });
     }
 
 </script>

@@ -14,11 +14,12 @@
     <script src="~/Content/Scripts/jquery.validate.min.js"></script>
     <script src="~/Content/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Content/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/layer/layer.js"></script>
     <script type="text/javascript">
 
         function departmentsuccess(data) {
             if (data == "1") {
-                alert("操作成功");
+                
                 parent.departmentwinclose();
             }
             else { alert(data); }
@@ -29,12 +30,12 @@
     <link rel="stylesheet" href="/content/assets/css/bootstrap.min.css" />
 </head>
 <body>
-    <input name="Id" type="hidden" value="@Model.Id">
-    @Html.HiddenFor(model => model.ParentDepartmentId)
-    <p>@Html.ValidationSummary()</p>
-        @using (Ajax.BeginForm("DepartMentInfo", "DepartMentMgr", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "departmentsuccess(data);" },new { @class= "form-horizontal",style="overflow:hidden;" }))
-        {
 
+    <p>@*@Html.ValidationSummary()*@</p>
+        @using (Ajax.BeginForm("DepartMentInfo", "DepartMentMgr", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "departmentsuccess(data);" }, new { @class = "form-horizontal", style = "overflow:hidden;" }))
+        {
+            <input name="Id" type="hidden" value="@Model.Id">
+            @Html.HiddenFor(model => model.ParentDepartmentId)
             <div class="form-group">
                 <label class="col-sm-3 col-xs-3 control-label text-right" for="form-field-1"> 名称: </label>
                 <div class="col-sm-9 col-xs-6">

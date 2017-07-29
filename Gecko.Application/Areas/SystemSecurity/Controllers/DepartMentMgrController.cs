@@ -13,7 +13,7 @@ using Gecko.Application.Filters;
 
 namespace Gecko.Application.Areas.SystemSecurity.Controllers
 {
-    [LoginFilter]
+    //[LoginFilter]
     public class DepartMentMgrController : Controller
     {
         //
