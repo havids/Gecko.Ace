@@ -3,8 +3,8 @@
 function Departmentmgr() { }
 //获取当前选中节点的 id，ntype
 Departmentmgr.selectedNode = function () { var node = $('#department-easyui-tree').tree('getSelected'); return node; }
-Departmentmgr.panelOpen = function () { $("#departmentpanel").panel("open"); }
-Departmentmgr.panelClose = function () { $("#departmentpanel").panel("close"); }
+Departmentmgr.panelOpen = function () { $(".widget-main").show(); }
+Departmentmgr.panelClose = function () { $(".widget-main").hide(); }
 //绑定tree 列表
 Departmentmgr.LoadTree = function () {
     $("#department-easyui-tree").tree({
@@ -42,26 +42,29 @@ Departmentmgr.LoadTree = function () {
             }
         }
     });
+    //初始化 禁用按钮 隐藏详情
+    Departmentmgr.BtnDisable();
+    Departmentmgr.panelClose();
 
 }
 //根据id获取当前权限代码的内容
 Departmentmgr.TreeNodeClick = function (ntype, id) {
 
     if (ntype == "root") {
-        $('#d_btnAdd').linkbutton('enable');
-        $('#d_btnEdit').linkbutton('disable');
-        $('#d_btnDel').linkbutton('disable');
+        $('#d_btnAdd').removeAttr("disabled");
+        $('#d_btnEdit').attr("disabled", true);
+        $('#d_btnDel').attr("disabled", true);
         Departmentmgr.panelClose();
     }
     else if (ntype == "department") {
         Departmentmgr.BtnEnable();
         $.getJSON("/SystemSecurity/DepartMentMgr/GetDepartMentInfoJson/" + id, null, function (data, textStatus, jqXHR) {
-            $('#d_txtName').textbox("setText", data.Name);
-            $('#d_txtOrderId').textbox("setText", data.OrderId);
-            $('#d_txtPhone').textbox("setText", data.Phone);
-            $('#d_txtExtNumber').textbox("setText", data.ExtNumber);
-            $('#d_txtFax').textbox("setText", data.Fax);
-            $('#d_txtaRemark').textbox("setText", data.Remark);
+            $('#d_txtName').html(data.Name);
+            $('#d_txtOrderId').html(data.OrderId);
+            $('#d_txtPhone').html(data.Phone);
+            $('#d_txtExtNumber').html(data.ExtNumber);
+            $('#d_txtFax').html(data.Fax);
+            $('#d_txtaRemark').html(data.Remark);
         });
         Departmentmgr.panelOpen();
     }
@@ -70,64 +73,81 @@ Departmentmgr.TreeNodeClick = function (ntype, id) {
 //disable 所有的button
 Departmentmgr.BtnDisable = function () {
 
-    $('#d_btnAdd').linkbutton('disable');
-    $('#d_btnEdit').linkbutton('disable');
-    $('#d_btnDel').linkbutton('disable');
+    $('#d_btnAdd').attr("disabled", true);
+    $('#d_btnEdit').attr("disabled", true);
+    $('#d_btnDel').attr("disabled", true);
     
 }
 //enable 所有的button
 Departmentmgr.BtnEnable = function () {
 
-    $('#d_btnAdd').linkbutton('enable');
-    $('#d_btnEdit').linkbutton('enable');
-    $('#d_btnDel').linkbutton('enable');
+    $('#d_btnAdd').removeAttr("disabled");
+    $('#d_btnEdit').removeAttr("disabled");
+    $('#d_btnDel').removeAttr("disabled");
 
 }
 
 $(function () {
 
-    //初始化 window
-    $('#departmentwin').window({
-        collapsible: false,
-        minimizable: false,
-        maximizable: false,
-        top: 230,
-        constrain: true,
-        width: 390,
-        closed: true,
-        modal: true
+    layer.config({
+        extend: 'gecko/style.css', //加载您的扩展样式
+        skin: 'geckoskin',
+        maxmin:false
     });
+
     //绑定按钮事件 add edit del move
     $("#d_btnAdd").bind("click", function () {
         var sNode = Departmentmgr.selectedNode();
         var typestr = sNode.ntype;
         if (typestr == "root") {
-            $("#departmentwin").panel("setTitle", "新增部门");
-            var content = "<iframe  id=\"departmentmgr_iframe\" name=\"departmentmgr_iframe\" height=\"280px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/DepartMentMgr/DepartMentCreate\"></iframe>";
-            $("#departmentwin").html(content);
+
+            layer.open({
+                title:'新增部门',
+                type: 2,
+                maxmin:false,
+                area: ['530px', '430px'],
+                fixed: false, //不固定
+                maxmin: false,
+                content: '/SystemSecurity/DepartMentMgr/DepartMentCreate'
+            });
         }
         else if (typestr == "department") {
-            $("#departmentwin").panel("setTitle", "新增部门");
-            var content = "<iframe  id=\"departmentmgr_iframe\" name=\"departmentmgr_iframe\" height=\"280px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/DepartMentMgr/DepartMentCreate/" + sNode.id + "\"></iframe>";
-            $("#departmentwin").html(content);
+            layer.open({
+                title: '新增部门',
+                type: 2,
+                maxmin: false,
+                area: ['530px', '430px'],
+                fixed: false, //不固定
+                maxmin: false,
+                content: '/SystemSecurity/DepartMentMgr/DepartMentCreate/'+sNode.id
+            });
         }
         $("#departmentwin").window("open");
     })
     $("#d_btnEdit").bind("click", function () {
         var sNode = Departmentmgr.selectedNode();
         var typestr = sNode.ntype;
-        $("#departmentwin").panel("setTitle", "编辑部门");
-        var content = "<iframe  id=\"departmentmgr_iframe\" name=\"departmentmgr_iframe\" height=\"280px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/DepartMentMgr/DepartMentEdit/" + sNode.id + "\"></iframe>";
-        $("#departmentwin").html(content);
-        $("#departmentwin").window("open");
+
+        layer.open({
+            title: '编辑部门',
+            type: 2,
+            maxmin: false,
+            area: ['530px', '430px'],
+            fixed: false, //不固定
+            maxmin: false,
+            content: "/SystemSecurity/DepartMentMgr/DepartMentEdit/" + sNode.id
+        });
     })
     $("#d_btnDel").bind("click", function () {
         var sNode = Departmentmgr.selectedNode();
         var nodes = $('#department-easyui-tree').tree('getChildren', Departmentmgr.selectedNode().target);
         if (nodes.length > 0)
-            alert("提示：当前部门下含有子部门，所以不能被删除。");
+            layer.msg("提示：当前部门下含有子部门，所以不能被删除。");    
         else {
-            if (confirm("您确实要删除当前部门吗？")) {
+
+            var confirmIndex = layer.confirm('您确实要删除当前部门吗？', {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
                 $.post("/DepartMentMgr/DepartMentDel/" + sNode.id, "", function (succeed, textStatus, jqXHR) {
                     if (succeed == "1") {
                         Departmentmgr.LoadTree();
@@ -140,7 +160,10 @@ $(function () {
                         //alert(Message.serverError);
                     }
                 })
-            }
+            }, function () {
+                layer.close(confirmIndex);
+            });
+
         }
     })
 
