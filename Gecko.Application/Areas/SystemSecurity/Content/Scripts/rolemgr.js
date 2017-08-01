@@ -3,8 +3,8 @@
 function RoleMgr() { }
 //获取当前选中节点的 id，ntype
 RoleMgr.selectedNode = function () { var node = $('#rolemgr-easyui-tree').tree('getSelected'); return node; }
-RoleMgr.panelOpen = function () { $("#rolemgrpanel").panel("open"); }
-RoleMgr.panelClose = function () { $("#rolemgrpanel").panel("close"); }
+RoleMgr.panelOpen = function () { $(".widget-main").show(); }
+RoleMgr.panelClose = function () { $(".widget-main").hide(); }
 //绑定tree 列表
 RoleMgr.LoadTree = function () {
     $("#rolemgr-easyui-tree").tree({
@@ -75,29 +75,29 @@ RoleMgr.LoadTree = function () {
 RoleMgr.TreeNodeClick = function (ntype, id) {
     if (ntype == "roletype") {
         RoleMgr.BtnEnable();
-        $('#rbtnSecurity').linkbutton('disable');
+        $('#rbtnSecurity').attr("disabled", true);
         $.getJSON("/RoleMgr/RoleTypeInfo/" + id, null, function (data, textStatus, jqXHR) {
-            $('#txtRoleName').textbox("setText", data.Name);
-            $('#txtRoleOrderId').textbox("setText", data.OrderId);
-            $('#txtRoleRemark').textbox("setText", data.Remark);
+            $('#txtRoleName').html(data.Name);
+            $('#txtRoleOrderId').html(data.OrderId);
+            $('#txtRoleRemark').html(data.Remark);
         });
         RoleMgr.panelOpen();
     }
     else if (ntype == "role") {
         RoleMgr.BtnDisable();
-        $('#rbtnSecurity').linkbutton('enable');
-        $('#rbtnEdit').linkbutton('enable');
-        $('#rbtnDel').linkbutton('enable');
+        $('#rbtnSecurity').removeAttr("disabled");
+        $('#rbtnEdit').removeAttr("disabled");
+        $('#rbtnDel').removeAttr("disabled");
         $.getJSON("/RoleMgr/RoleInfo/" + id, null, function (data, textStatus, jqXHR) {
-            $('#txtRoleName').textbox("setText", data.Name);
-            $('#txtRoleOrderId').textbox("setText", data.OrderId);
-            $('#txtRoleRemark').textbox("setText", data.Remark);
+            $('#txtRoleName').html(data.Name);
+            $('#txtRoleOrderId').html(data.OrderId);
+            $('#txtRoleRemark').html(data.Remark);
         });
         RoleMgr.panelOpen();
     }
     else {
         RoleMgr.BtnDisable();
-        $('#rbtnAddType').linkbutton('enable');
+        $('#rbtnAddType').removeAttr("disabled");
        
         RoleMgr.panelClose();
     }
@@ -105,81 +105,106 @@ RoleMgr.TreeNodeClick = function (ntype, id) {
 }
 //disable 所有的button
 RoleMgr.BtnDisable = function () {
-    $('#rbtnAddType').linkbutton('disable');
-    $('#rbtnAdd').linkbutton('disable');
-    $('#rbtnSecurity').linkbutton('disable');
-    $('#rbtnEdit').linkbutton('disable');
-    $('#rbtnDel').linkbutton('disable');
+    $('#rbtnAddType').attr("disabled", true);
+    $('#rbtnAdd').attr("disabled", true);
+    $('#rbtnSecurity').attr("disabled", true);
+    $('#rbtnEdit').attr("disabled", true);
+    $('#rbtnDel').attr("disabled", true);
 }
 //enable 所有的button
 RoleMgr.BtnEnable = function () {
-    $('#rbtnAddType').linkbutton('enable');
-    $('#rbtnAdd').linkbutton('enable');
-    $('#rbtnSecurity').linkbutton('enable');
-    $('#rbtnEdit').linkbutton('enable');
-    $('#rbtnDel').linkbutton('enable');
+    $('#rbtnAddType').removeAttr("disabled");
+    $('#rbtnAdd').removeAttr("disabled");
+    $('#rbtnSecurity').removeAttr("disabled");
+    $('#rbtnEdit').removeAttr("disabled");
+    $('#rbtnDel').removeAttr("disabled");
 }
 
 $(function () {
 
-    //初始化 window
-    $('#rolewin').window({
-        collapsible: false,
-        minimizable: false,
-        maximizable: false,
-        top:230,
-        closed: true,
-        width: 328,
-        modal: true
+    layer.config({
+        extend: 'gecko/style.css', //加载您的扩展样式
+        skin: 'geckoskin',
+        maxmin: false
     });
+
     //绑定按钮事件 add edit del move
     $("#rbtnAddType").bind("click", function () {
         var sNode = RoleMgr.selectedNode();
         var typestr = sNode.ntype;
-        $("#rolewin").panel("setTitle", "新增角色分类");
-        if (typestr == "root") {
-            var content = "<iframe  id=\"RoleMgr_iframe\" name=\"RoleMgr_iframe\" height=\"300px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/RoleMgr/CreateRoleType\"></iframe>";
-            $("#rolewin").html(content);
+        
+        var url = '/SystemSecurity/RoleMgr/CreateRoleType';
+        if (typestr == "roletype") {
+            url = '/SystemSecurity/RoleMgr/CreateRoleType/' + sNode.id;
         }
-        else if (typestr == "roletype") {
-            var content = "<iframe  id=\"RoleMgr_iframe\" name=\"RoleMgr_iframe\" height=\"300px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/RoleMgr/CreateRoleType/" + sNode.id + "\"></iframe>";
-            $("#rolewin").html(content);
-        }
-        $("#rolewin").window("open");
+
+        layer.open({
+            title: '新增角色分类',
+            type: 2,
+            maxmin: false,
+            area: ['530px', '430px'],
+            fixed: false, //不固定
+            maxmin: false,
+            content: '/SystemSecurity/RoleMgr/CreateRoleType/' + sNode.id
+        });
+
     })
 
     $("#rbtnAdd").bind("click", function () {
         var sNode = RoleMgr.selectedNode();
-        var typestr = sNode.ntype;
-        $("#rolewin").panel("setTitle", "新增角色");
-        var content = "<iframe  id=\"RoleMgr_iframe\" name=\"RoleMgr_iframe\" height=\"300px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/RoleMgr/CreateRole/" + sNode.id + "\"></iframe>";
-        $("#rolewin").html(content);
-        $("#rolewin").window("open");
+        layer.open({
+            title: '新增角色',
+            type: 2,
+            maxmin: false,
+            area: ['530px', '430px'],
+            fixed: false, //不固定
+            maxmin: false,
+            content: '/SystemSecurity/RoleMgr/CreateRole/' + sNode.id
+        });
+
     })
 
     $("#rbtnSecurity").bind("click", function () {
         var sNode = RoleMgr.selectedNode();
-        var typestr = sNode.ntype;
-        $("#rolewin").panel("setTitle", "角色授权");
-        var content = "<iframe  id=\"RoleMgr_iframe\" name=\"RoleMgr_iframe\" height=\"430px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/RoleMgr/Permissions/" + sNode.id + "\"></iframe>";
-        $("#rolewin").html(content);
-        $("#rolewin").window("open");
+        layer.open({
+            title: '新增角色',
+            type: 2,
+            maxmin: false,
+            area: ['530px', '430px'],
+            fixed: false, //不固定
+            maxmin: false,
+            content: '/SystemSecurity/RoleMgr/Permissions/' + sNode.id
+        });
+
     })
 
     $("#rbtnEdit").bind("click", function () {
         var sNode = RoleMgr.selectedNode();
         var typestr = sNode.ntype;
         if (typestr == "roletype") {
-            $("#rolewin").panel("setTitle", "编辑角色分类");
-            var content = "<iframe  id=\"RoleMgr_iframe\" name=\"RoleMgr_iframe\" height=\"300px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/RoleMgr/EditRoleType/" + sNode.id + "\"></iframe>";
-            $("#rolewin").html(content);
+            layer.open({
+                title: '编辑角色分类',
+                type: 2,
+                maxmin: false,
+                area: ['530px', '430px'],
+                fixed: false, //不固定
+                maxmin: false,
+                content: '/SystemSecurity/RoleMgr/EditRoleType/' + sNode.id
+            });
         }
         else if (typestr == "role") {
-            $("#rolewin").panel("setTitle", "编辑角色");
-            var content = "<iframe  id=\"RoleMgr_iframe\" name=\"RoleMgr_iframe\" height=\"300px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/RoleMgr/EditRole/" + sNode.id + "\"></iframe>";
-            $("#rolewin").html(content);
+
+            layer.open({
+                title: '编辑角色',
+                type: 2,
+                maxmin: false,
+                area: ['530px', '430px'],
+                fixed: false, //不固定
+                maxmin: false,
+                content: '/SystemSecurity/RoleMgr/EditRole/' + sNode.id
+            });
+
         }
-        $("#rolewin").window("open");
     })
     $("#rbtnDel").bind("click", function () {
         var sNode = RoleMgr.selectedNode();
@@ -187,37 +212,53 @@ $(function () {
         if (typestr == "roletype") {
             var nodes = $('#rolemgr-easyui-tree').tree('getChildren', RoleMgr.selectedNode().target);
             if (nodes.length > 0)
-                alert("提示：当前角色分类包含子角色分类或角色，所以不能被删除。");
+                layer.msg("提示：当前角色分类包含子角色分类或角色，所以不能被删除。");
             else {
-                if (confirm("您确实要删除当前角色分类吗？")) {
+
+                var confirmIndex = layer.confirm('您确实要删除当前角色分类吗？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
                     $.post("/RoleMgr/DelRoleType/" + sNode.id, "", function (succeed, textStatus, jqXHR) {
                         if (succeed == "1") {
                             RoleMgr.LoadTree();
+                            layer.msg("操作成功");
                         }
                         if (succeed == "-2") {
-                            alert("提示：当前角色分类包含子角色，所以不能被删除。");
+                            layer.msg("提示：当前角色分类包含子角色，所以不能被删除。");
                         }
                         else if (succeed == "-1") {
                             //alert(Message.serverError);
                         }
                     })
-                }
+                    layer.close(confirmIndex);
+                }, function () {
+                    layer.close(confirmIndex);
+                });
+
             }
         }
         else if (typestr == "role") {
-            if (confirm("您确实要删除当前角色吗？")) {
+
+            var confirmIndex = layer.confirm('您确实要删除当前角色吗？', {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
                 $.post("/RoleMgr/DelRole/" + sNode.id, "", function (succeed, textStatus, jqXHR) {
                     if (succeed == "1") {
                         RoleMgr.LoadTree();
+                        layer.msg("操作成功");
                     }
                     if (succeed == "-2") {
-                        alert("提示：当前角色包含子角色，所以不能被删除。");
+                        layer.msg("提示：当前角色包含子角色，所以不能被删除。");
                     }
                     else if (succeed == "-1") {
                         //alert(Message.serverError);
                     }
                 })
-            }
+                layer.close(confirmIndex);
+            }, function () {
+                layer.close(confirmIndex);
+            });
+
         }
     })
 

@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/icon.css">
     <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.min.js"></script>
     <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/layer/layer.js"></script>
 </head>
 <body>
     <div>
@@ -35,19 +36,24 @@
                     if (data == "1") {
                         parent.rolemgrwinclose();
                     }
-                    else { alert("error"); }
+                    else { layer.msg("error"); }
                 })
             }
-            else { alert('请选择权限'); }
+            else { layer.msg('请选择权限'); }
         })
         //绑定tree
         $("#permission-easyui-tree").tree({
-            url: '/RoleMgr/PermissionsTree/'+$("#roleId").val(),
+            url: '/RoleMgr/PermissionsTree/' + $("#roleId").val(),
             checkbox: true,
             onlyLeafCheck: true,
             lines: true,
-            method: 'post'
-        })
+            method: 'post',
+            onLoadSuccess: function () {
+                //默认展开所有节点
+                $("#permission-easyui-tree").tree("expandAll");
+            }
+        });
+
     })
 
 </script>
