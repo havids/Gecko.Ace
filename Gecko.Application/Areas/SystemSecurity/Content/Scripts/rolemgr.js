@@ -145,7 +145,7 @@ $(function () {
             area: ['530px', '430px'],
             fixed: false, //不固定
             maxmin: false,
-            content: '/SystemSecurity/RoleMgr/CreateRoleType/' + sNode.id
+            content: url
         });
 
     })

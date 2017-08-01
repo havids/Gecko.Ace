@@ -3,8 +3,8 @@
 function ModuleMgr() { }
 //获取当前选中节点的 id，ntype
 ModuleMgr.selectedNode = function () { var node = $('#modulemgr-easyui-tree').tree('getSelected'); return node; }
-ModuleMgr.panelOpen = function () { $("#modulemgrpanel").panel("open"); }
-ModuleMgr.panelClose = function () { $("#modulemgrpanel").panel("close"); }
+ModuleMgr.panelOpen = function () { $(".widget-main").show(); }
+ModuleMgr.panelClose = function () { $(".widget-main").hide(); }
 //绑定tree 列表
 ModuleMgr.LoadTree = function () {
     $("#modulemgr-easyui-tree").tree({
@@ -51,28 +51,29 @@ ModuleMgr.TreeNodeClick = function (ntype, id) {
     if (ntype == "moduletype") {
         ModuleMgr.BtnEnable();
         $.getJSON("/ModuleMgr/ModuleTypeInfo/" + id, null, function (data, textStatus, jqXHR) {
-            $('#txtModuleName').textbox("setText", data.Name);
-            $('#txtModuleOrderId').textbox("setText", data.OrderId);
-            $('#txtModuleRemark').textbox("setText", data.Remark);
-            $('#trtxtModuleTag').hide();
-            $('#trtxtModuleDisable').hide();
-            $('#trtxtModuleSecurity').hide();
-            $('#trtxtModuleAddress').hide();
+            $('#txtModuleName').html(data.Name);
+            $('#txtModuleOrderId').html(data.OrderId);
+            $('#txtModuleRemark').html(data.Remark);
+            $('#txtModuleTag').html("");
+            $('#txtModuleDisable').html("");
+            $('#trtxtModuleSecurity').html("");
+            $('#txtModuleAddress').html("");
+            $("#divRights").html("");
         });
         ModuleMgr.panelOpen();
     }
     else if (ntype == "module") {
-        $('#mbtnAddModuleType').linkbutton('disable');
-        $('#mbtnAddModule').linkbutton('disable');
-        $('#mbtnEdit').linkbutton('enable');
-        $('#mbtnDel').linkbutton('enable');
+        $('#mbtnAddModuleType').removeAttr("disabled");
+        $('#mbtnAddModule').attr("disabled", true);
+        $('#mbtnEdit').attr("disabled", true);
+        $('#mbtnDel').attr("disabled", true);
         $.getJSON("/ModuleMgr/ModuleInfo/" + id, null, function (data, textStatus, jqXHR) {
-            $('#txtModuleName').textbox("setText", data.Name);
-            $('#txtModuleOrderId').textbox("setText", data.OrderId);
-            $('#txtModuleRemark').textbox("setText", data.Remark);
-            $('#txtModuleTag').textbox("setText", data.Tag);
+            $('#txtModuleName').html(data.Name);
+            $('#txtModuleOrderId').html(data.OrderId);
+            $('#txtModuleRemark').html(data.Remark);
+            $('#txtModuleTag').html(data.Tag);
             $('#txtModuleDisable').html(data.Disabled==1?"是":"否");
-            $('#txtModuleAddress').textbox("setText", data.ModuleUrl);
+            $('#txtModuleAddress').html(data.ModuleUrl);
             //清空divRights
             $("#divRights").html('');
             //拼接rights
@@ -80,92 +81,111 @@ ModuleMgr.TreeNodeClick = function (ntype, id) {
             {
                 var slist = val.split('|');
                 if (slist.length == 1)
-                    $("#divRights").append("<div>"+"&nbsp;"+slist[0]+"</div>")
+                    $("#divRights").append("<div><i class=\"glyphicon glyphicon-remove\"></i>" + slist[0] + "</div>")
                 else
-                    $("#divRights").append("<div>" + slist[1]+slist[0] + "</div>")
+                    $("#divRights").append("<div><i class=\"glyphicon glyphicon-ok\"></i>"  + slist[0] + "</div>")
             })
-            $('#trtxtModuleTag').show();
-            $('#trtxtModuleDisable').show();
-            $('#trtxtModuleSecurity').show();
-            $('#trtxtModuleAddress').show();
         });
         ModuleMgr.panelOpen();
     }
     else {
-        $('#mbtnAddModuleType').linkbutton('enable');
-        $('#mbtnAddModule').linkbutton('disable');
-        $('#mbtnEdit').linkbutton('disable');
-        $('#mbtnDel').linkbutton('disable');
+        $('#mbtnAddModuleType').removeAttr("disabled");
+        $('#mbtnAddModule').attr("disabled", true);
+        $('#mbtnEdit').attr("disabled", true);
+        $('#mbtnDel').attr("disabled", true);
         ModuleMgr.panelClose();
     }
 
 }
 //disable 所有的button
 ModuleMgr.BtnDisable = function () {
-    $('#mbtnAddModuleType').linkbutton('disable');
-    $('#mbtnAddModule').linkbutton('disable');
-    $('#mbtnEdit').linkbutton('disable');
-    $('#mbtnDel').linkbutton('disable');;
+    $('#mbtnAddModuleType').attr("disabled", true);
+    $('#mbtnAddModule').attr("disabled", true);
+    $('#mbtnEdit').attr("disabled", true);
+    $('#mbtnDel').attr("disabled", true);
 }
 //enable 所有的button
 ModuleMgr.BtnEnable = function () {
-    $('#mbtnAddModuleType').linkbutton('enable');
-    $('#mbtnAddModule').linkbutton('enable');
-    $('#mbtnEdit').linkbutton('enable');
-    $('#mbtnDel').linkbutton('enable');
+    $('#mbtnAddModuleType').removeAttr("disabled");
+    $('#mbtnAddModule').removeAttr("disabled");
+    $('#mbtnEdit').removeAttr("disabled");
+    $('#mbtnDel').removeAttr("disabled");
 }
 
 $(function () {
 
-    //初始化 window
-    $('#modulewin').window({
-        collapsible: false,
-        minimizable: false,
-        maximizable: false,
-        top: 230,
-        width:430,
-        closed: true,
-        modal: true
+    layer.config({
+        extend: 'gecko/style.css', //加载您的扩展样式
+        skin: 'geckoskin',
+        maxmin: false
     });
     //绑定按钮事件 add edit del move
     $("#mbtnAddModuleType").bind("click", function () {
         var sNode = ModuleMgr.selectedNode();
         var typestr = sNode.ntype;
-        $("#modulewin").panel("setTitle", "新增模块分类");
-        if (typestr == "root") {
-            var content = "<iframe  id=\"ModuleMgr_iframe\" name=\"ModuleMgr_iframe\" height=\"190px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/ModuleMgr/CreateModuleType\"></iframe>";
-            $("#modulewin").html(content);
-        }
-        else if (typestr == "moduletype") {
+        var url = '/SystemSecurity/ModuleMgr/CreateModuleType';
+        if (typestr == "moduletype") {
             var content = "<iframe  id=\"ModuleMgr_iframe\" name=\"ModuleMgr_iframe\" height=\"190px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/ModuleMgr/CreateModuleType/" + sNode.id + "\"></iframe>";
             $("#modulewin").html(content);
         }
-        $("#modulewin").window("open");
+
+        layer.open({
+            title: '新增模块分类',
+            type: 2,
+            maxmin: false,
+            area: ['530px', '430px'],
+            fixed: false, //不固定
+            maxmin: false,
+            content: url
+        });
     })
 
     $("#mbtnAddModule").bind("click", function () {
         var sNode = ModuleMgr.selectedNode();
         var typestr = sNode.ntype;
-        $("#modulewin").panel("setTitle", "新增模块");
-        var content = "<iframe  id=\"ModuleMgr_iframe\" name=\"ModuleMgr_iframe\" height=\"500px\" width=\"100%\" frameborder=\"0\" src=\"/SystemSecurity/ModuleMgr/CreateModule/" + sNode.id + "\"></iframe>";
-        $("#modulewin").html(content);
-        $("#modulewin").window("open");
+
+        layer.open({
+            title: '新增模块',
+            type: 2,
+            maxmin: false,
+            area: ['530px', '430px'],
+            fixed: false, //不固定
+            maxmin: false,
+            content: "/SystemSecurity/ModuleMgr/CreateModule/" + sNode.id
+        });
+
     })
 
     $("#mbtnEdit").bind("click", function () {
         var sNode = ModuleMgr.selectedNode();
         var typestr = sNode.ntype;
         if (typestr == "moduletype") {
-            $("#modulewin").panel("setTitle", "编辑模块分类");
-            var content = "<iframe  id=\"ModuleMgr_iframe\" name=\"ModuleMgr_iframe\" height=\"190px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/ModuleMgr/EditModuleType/" + sNode.id + "\"></iframe>";
-            $("#modulewin").html(content);
+
+            layer.open({
+                title: '编辑模块分类',
+                type: 2,
+                maxmin: false,
+                area: ['530px', '430px'],
+                fixed: false, //不固定
+                maxmin: false,
+                content: "/SystemSecurity/ModuleMgr/EditModuleType/" + sNode.id
+            });
+
         }
         else if (typestr == "module") {
-            $("#modulewin").panel("setTitle", "编辑模块");
-            var content = "<iframe  id=\"ModuleMgr_iframe\" name=\"ModuleMgr_iframe\" height=\"500px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/ModuleMgr/EditModule/" + sNode.id + "\"></iframe>";
-            $("#modulewin").html(content);
+
+            layer.open({
+                title: '编辑模块',
+                type: 2,
+                maxmin: false,
+                area: ['530px', '430px'],
+                fixed: false, //不固定
+                maxmin: false,
+                content: "/SystemSecurity/ModuleMgr/EditModule/" + sNode.id
+            });
+
         }
-        $("#modulewin").window("open");
+
     })
     $("#mbtnDel").bind("click", function () {
         var sNode = ModuleMgr.selectedNode();
@@ -173,37 +193,53 @@ $(function () {
         if (typestr == "moduletype") {
             var nodes = $('#modulemgr-easyui-tree').tree('getChildren', ModuleMgr.selectedNode().target);
             if (nodes.length > 0)
-                alert("提示：当前模块分类包含子模块分类或模块，所以不能被删除。");
+                layer.msg("提示：当前模块分类包含子模块分类或模块，所以不能被删除。");
             else {
-                if (confirm("您确实要删除当前模块分类吗？")) {
+
+                var confirmIndex = layer.confirm('您确实要删除当前模块分类吗？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
                     $.post("/ModuleMgr/DelModuleType/" + sNode.id, "", function (succeed, textStatus, jqXHR) {
                         if (succeed == "1") {
-                            ModuleMgr.LoadTree();
+                            Departmentmgr.LoadTree();
+                            layer.msg("操作成功");
                         }
                         if (succeed == "-2") {
-                            alert("提示：当前模块分类包含子模块分类或模块，所以不能被删除。");
+                            layer.msg("提示：当前模块分类包含子模块分类或模块，所以不能被删除。");
                         }
                         else if (succeed == "-1") {
                             //alert(Message.serverError);
                         }
                     })
-                }
+                    layer.close(confirmIndex);
+                }, function () {
+                    layer.close(confirmIndex);
+                });
+
             }
         }
         else if (typestr == "module") {
-            if (confirm("您确实要删除当前模块吗？")) {
+
+            var confirmIndex = layer.confirm('您确实要删除当前模块吗？', {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
                 $.post("/ModuleMgr/DelModule/" + sNode.id, "", function (succeed, textStatus, jqXHR) {
                     if (succeed == "1") {
-                        ModuleMgr.LoadTree();
+                        Departmentmgr.LoadTree();
+                        layer.msg("操作成功");
                     }
                     if (succeed == "-2") {
-                        alert("提示：当前模块包含权限，所以不能被删除。");
+                        layer.msg("提示：当前模块包含权限，所以不能被删除。");
                     }
                     else if (succeed == "-1") {
                         //alert(Message.serverError);
                     }
                 })
-            }
+                layer.close(confirmIndex);
+            }, function () {
+                layer.close(confirmIndex);
+            });
+
         }
     })
 
