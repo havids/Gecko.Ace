@@ -3,10 +3,10 @@
 function Staffmgr() { }
 //获取当前选中节点的 id，ntype
 Staffmgr.selectedNode = function () { var node = $('#staff-easyui-tree').tree('getSelected'); return node; }
-Staffmgr.staffpanelOpen = function () { $("#staffpanel").panel("open"); }
-Staffmgr.staffpanelClose = function () { $("#staffpanel").panel("close"); }
-Staffmgr.departmentpanelOpen = function () { $("#staffdepartmentpanel").panel("open"); }
-Staffmgr.departmentpanelClose = function () { $("#staffdepartmentpanel").panel("close"); }
+Staffmgr.staffpanelOpen = function () { $(".widget-title").html("职员详情"); $("#staffpanel").show(); }
+Staffmgr.staffpanelClose = function () { $("#staffpanel").hide(); }
+Staffmgr.departmentpanelOpen = function () { $(".widget-title").html("部门详情"); $("#staffdepartmentpanel").show(); }
+Staffmgr.departmentpanelClose = function () { $("#staffdepartmentpanel").hide(); }
 //绑定tree 列表
 Staffmgr.LoadTree = function () {
     $("#staff-easyui-tree").tree({
@@ -60,6 +60,11 @@ Staffmgr.LoadTree = function () {
             }
         }
     });
+
+    Staffmgr.staffpanelClose();
+    Staffmgr.departmentpanelClose();
+    Staffmgr.BtnDisable();
+
 }
 //根据id获取当前权限代码的内容
 Staffmgr.TreeNodeClick = function (ntype, id) {
@@ -71,50 +76,50 @@ Staffmgr.TreeNodeClick = function (ntype, id) {
     }
     else if (ntype == "department") {
         Staffmgr.BtnDisable();
-        $('#s_btnAdd').linkbutton('enable');
+        $('#s_btnAdd').removeAttr("disabled");
         $.getJSON("/DepartMentMgr/GetDepartMentInfoJson/" + id, null, function (data, textStatus, jqXHR) {
-            $('#staff_dtxtName').textbox("setText", data.Name);
-            $('#staff_dtxtOrderId').textbox("setText", data.OrderId);
-            $('#staff_dtxtPhone').textbox("setText", data.Phone);
-            $('#staff_dtxtExtNumber').textbox("setText", data.ExtNumber);
-            $('#staff_dtxtFax').textbox("setText", data.Fax);
-            $('#staff_dtxtaRemark').textbox("setText", data.Remark);
+            $('#staff_dtxtName').html(data.Name);
+            $('#staff_dtxtOrderId').html(data.OrderId);
+            $('#staff_dtxtPhone').html(data.Phone);
+            $('#staff_dtxtExtNumber').html(data.ExtNumber);
+            $('#staff_dtxtFax').html(data.Fax);
+            $('#staff_dtxtaRemark').html(data.Remark);
         });
         Staffmgr.departmentpanelOpen();
         Staffmgr.staffpanelClose();
     }
     else if(ntype=="staff") {
         Staffmgr.BtnEnable();
-        $('#s_btnAdd').linkbutton('disable');
+        $('#s_btnAdd').attr("disabled", true);
         $.getJSON("/StaffMgr/GetStaffInfo/" + id, null, function (data, textStatus, jqXHR) {
-            $('#txtStaffLoginId').textbox("setText", data.LoginId);
-            $('#txtStaffCode').textbox("setText", data.Code);
-            $('#txtStaffName').textbox("setText", data.Name);
-            $('#txtStaffSex').textbox("setText", data.Sex);
-            $('#txtStaffMarried').textbox("setText", data.Married);
-            $('#txtStaffIdCard').textbox("setText", data.IdCard);
-            $('#txtStaffCountry').textbox("setText", data.CountryTag);
-            $('#txtStaffNation').textbox("setText", data.NationTag);
-            $('#txtStaffPosition').textbox("setText", data.PositionTag);
-            $('#txtStaffTitle').textbox("setText", data.TitleTag);
-            $('#txtStaffPolitical').textbox("setText", data.PoliticalAppearanceTag);
-            $('#txtStaffDegree').textbox("setText", data.DegreeTag);
-            $('#txtStaffBirthday').textbox("setText", data.Birthday);
-            $('#txtStaffEntersDay').textbox("setText", data.EntersDay);
-            $('#txtStaffLeavesDay').textbox("setText", data.LeavesDay);
-            $('#txtStaffOfficePhone').textbox("setText", data.OfficePhone);
-            $('#txtStaffExtNumber').textbox("setText", data.ExtNumber);
-            $('#txtStaffFamilyPhone').textbox("setText", data.FamilyPhone);
-            $('#txtStaffCellPhone').textbox("setText", data.CellPhone);
-            $('#txtStaffEmail').textbox("setText", data.Email);
-            $('#txtaStaffAddress').textbox("setText", data.Addres);
-            $('#txtStaffZipCode').textbox("setText", data.ZipCode);
-            $('#txtaStaffRemark').textbox("setText", data.Remark);
+            $('#txtStaffLoginId').html(data.LoginId);
+            $('#txtStaffCode').html(data.Code);
+            $('#txtStaffName').html(data.Name);
+            $('#txtStaffSex').html(data.Sex);
+            $('#txtStaffMarried').html(data.Married);
+            $('#txtStaffIdCard').html(data.IdCard);
+            $('#txtStaffCountry').html(data.CountryTag);
+            $('#txtStaffNation').html(data.NationTag);
+            $('#txtStaffPosition').html(data.PositionTag);
+            $('#txtStaffTitle').html(data.TitleTag);
+            $('#txtStaffPolitical').html(data.PoliticalAppearanceTag);
+            $('#txtStaffDegree').html(data.DegreeTag);
+            $('#txtStaffBirthday').html(data.Birthday);
+            $('#txtStaffEntersDay').html(data.EntersDay);
+            $('#txtStaffLeavesDay').html(data.LeavesDay);
+            $('#txtStaffOfficePhone').html(data.OfficePhone);
+            $('#txtStaffExtNumber').html(data.ExtNumber);
+            $('#txtStaffFamilyPhone').html(data.FamilyPhone);
+            $('#txtStaffCellPhone').html(data.CellPhone);
+            $('#txtStaffEmail').html(data.Email);
+            $('#txtaStaffAddress').html(data.Addres);
+            $('#txtStaffZipCode').html(data.ZipCode);
+            $('#txtaStaffRemark').html(data.Remark);
             if (data.Disabled==1)
                 $("#txtStaffDisabled").html("是");
             else
                 $("#txtStaffDisabled").html("否");
-            $('#txtStaffOrderId').textbox("setText", data.OrderId);
+            $('#txtStaffOrderId').html(data.OrderId);
         });
         Staffmgr.departmentpanelClose();
         Staffmgr.staffpanelOpen();
@@ -124,97 +129,121 @@ Staffmgr.TreeNodeClick = function (ntype, id) {
 //disable 所有的button
 Staffmgr.BtnDisable = function () {
 
-    $('#s_btnAdd').linkbutton('disable');
-    $('#s_btnEdit').linkbutton('disable');
-    $('#s_btnEditPwd').linkbutton('disable');
-    $('#s_btnRole').linkbutton('disable');
-    $('#s_btnSecurity').linkbutton('disable');
-    $('#s_btnDel').linkbutton('disable');
+    $('#s_btnAdd').attr("disabled", true);
+    $('#s_btnEdit').attr("disabled", true);
+    $('#s_btnEditPwd').attr("disabled", true);
+    $('#s_btnRole').attr("disabled", true);
+    $('#s_btnSecurity').attr("disabled", true);
+    $('#s_btnDel').attr("disabled", true);
 
 }
 //enable 所有的button
 Staffmgr.BtnEnable = function () {
 
-    $('#s_btnAdd').linkbutton('enable');
-    $('#s_btnEdit').linkbutton('enable');
-    $('#s_btnEditPwd').linkbutton('enable');
-    $('#s_btnRole').linkbutton('enable');
-    $('#s_btnSecurity').linkbutton('enable');
-    $('#s_btnDel').linkbutton('enable');
+    $('#s_btnAdd').removeAttr("disabled");
+    $('#s_btnEdit').removeAttr("disabled");
+    $('#s_btnEditPwd').removeAttr("disabled");
+    $('#s_btnRole').removeAttr("disabled");
+    $('#s_btnSecurity').removeAttr("disabled");
+    $('#s_btnDel').removeAttr("disabled");
 
 }
 
 $(function () {
 
-    //初始化 window
-    $('#staffwin').window({
-        collapsible: false,
-        minimizable: false,
-        maximizable: false,
-        top: 230,
-        constrain: true,
-        width: 599,
-        closed: true,
-        modal: true
-    });
-
-    $('#staffwin1').window({
-        collapsible: false,
-        minimizable: false,
-        maximizable: false,
-        top: 230,
-        modal: true,
-        closed: true
+    layer.config({
+        extend: 'gecko/style.css', //加载您的扩展样式
+        skin: 'geckoskin',
+        maxmin: false
     });
 
     //绑定按钮事件 add edit del move
     $("#s_btnAdd").bind("click", function () {
         var sNode = Staffmgr.selectedNode();
-        var typestr = sNode.ntype;
-        $("#staffwin").panel("setTitle", "新增职员");
-        var content = "<iframe  id=\"staffmgr_iframe\" name=\"staffmgr_iframe\" height=\"390px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/StaffMgr/StaffCreate/" + sNode.id + "\"></iframe>";
-        $("#staffwin").html(content);
-        $("#staffwin").window("open");
+
+        layer.open({
+            title: "新增职员",
+            type: 2,
+            offset: '28px',
+            maxmin: false,
+            area: ['730px', '698px'],
+            fixed: false, //不固定
+            maxmin: false,
+            content: "/SystemSecurity/StaffMgr/StaffCreate/" + sNode.id
+        });
+
     })
+
     $("#s_btnEdit").bind("click", function () {
         var sNode = Staffmgr.selectedNode();
         var typestr = sNode.ntype;
-        $("#staffwin").panel("setTitle", "编辑职员");
-        var content = "<iframe  id=\"staffmgr_iframe\" name=\"staffmgr_iframe\" height=\"390px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/StaffMgr/StaffEdit/" + sNode.id + "\"></iframe>";
-        $("#staffwin").html(content);
-        $("#staffwin").window("open");
+
+        layer.open({
+            title: "编辑职员",
+            type: 2,
+            offset: '28px',
+            maxmin: false,
+            area: ['730px', '698px'],
+            fixed: false, //不固定
+            maxmin: false,
+            content: "/SystemSecurity/StaffMgr/StaffEdit/" + sNode.id
+        });
+
     })
 
     $("#s_btnSecurity").bind("click", function () {
         var sNode = Staffmgr.selectedNode();
-        $("#staffwin1").panel("setTitle", "职员授权");
-        var content = "<iframe  id=\"staffmgr_iframe\" name=\"staffmgr_iframe\" height=\"390px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/StaffMgr/Permissions/" + sNode.id + "\"></iframe>";
-        $("#staffwin1").html(content);
-        $("#staffwin1").window("open");
+
+        layer.open({
+            title: "职员授权",
+            type: 2,
+            maxmin: false,
+            area: ['530px', '430px'],
+            fixed: false, //不固定
+            maxmin: false,
+            content: "/SystemSecurity/StaffMgr/Permissions/" + sNode.id
+        });
     })
 
     $("#s_btnRole").bind("click", function () {
         var sNode = Staffmgr.selectedNode();
-        $("#staffwin1").panel("setTitle", "角色管理");
-        var content = "<iframe  id=\"staffmgr_iframe\" name=\"staffmgr_iframe\" height=\"390px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/StaffMgr/Roles/" + sNode.id + "\"></iframe>";
-        $("#staffwin1").html(content);
-        $("#staffwin1").window("open");
+
+        layer.open({
+            title: "角色管理",
+            type: 2,
+            maxmin: false,
+            area: ['530px', '430px'],
+            fixed: false, //不固定
+            maxmin: false,
+            content: "/SystemSecurity/StaffMgr/Roles/" + sNode.id
+        });
+
     })
 
     $("#s_btnEditPwd").bind("click", function () {
         var sNode = Staffmgr.selectedNode();
-        $("#staffwin1").panel("setTitle", "修改密码");
-        var content = "<iframe  id=\"staffmgr_iframe\" name=\"staffmgr_iframe\" height=\"146px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/StaffMgr/StaffPassword/" + sNode.id + "\"></iframe>";
-        $("#staffwin1").html(content);
-        $("#staffwin1").window("open");
+
+        layer.open({
+            title: "修改密码",
+            type: 2,
+            maxmin: false,
+            area: ['530px', '430px'],
+            fixed: false, //不固定
+            maxmin: false,
+            content: "/SystemSecurity/StaffMgr/StaffPassword/" + sNode.id
+        });
+
     })
 
     $("#s_btnDel").bind("click", function () {
+
         var sNode = Staffmgr.selectedNode();
-        if (confirm("您确实要删除当前职员吗？")) {
+        var confirmIndex = layer.confirm('您确实要删除当前职员吗？', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
             $.post("/SystemSecurity/StaffMgr/StaffDel/" + sNode.id, "", function (succeed, textStatus, jqXHR) {
                 if (succeed == "1") {
-                    Staffmgr.LoadTree();
+                    SStaffmgr.LoadTree();
                     Staffmgr.departmentpanelClose();
                     Staffmgr.staffpanelClose();
                     Staffmgr.BtnDisable();
@@ -223,7 +252,11 @@ $(function () {
                     //alert(Message.serverError);
                 }
             })
-        }
+            layer.close(confirmIndex);
+        }, function () {
+            layer.close(confirmIndex);
+        });
+
     })
 
     //加载tree

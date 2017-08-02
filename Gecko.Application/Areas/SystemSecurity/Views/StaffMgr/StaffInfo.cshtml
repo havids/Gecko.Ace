@@ -1,132 +1,174 @@
 ﻿@model Gecko.Security.DTO.StaffDTO
-
 @{
     Layout = null;
 }
-
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>StaffDTO</title>
-    <link type="text/css" href="~/Content/css/info.css" rel="stylesheet" />
-</head>
-<body>
+    <title>职员管理</title>
     <script src="~/Content/Scripts/jquery-1.8.2.min.js"></script>
     <script src="~/Content/Scripts/jquery.validate.min.js"></script>
     <script src="~/Content/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Content/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="~/Content/Scripts/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/layer/layer.js"></script>
     <script type="text/javascript">
 
-        function staffsuccess(data) {
+        function departmentsuccess(data) {
             if (data == "1") {
-                alert("操作成功");
-                parent.staffwinclose();
+
+                parent.departmentwinclose();
             }
-            else { alert(data); }
+            else { layer.msg(data); }
         }
 
     </script>
-    <div class="container1">
-        @using (Ajax.BeginForm("StaffInfo", "StaffMgr", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "staffsuccess(data);" }))
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="/content/assets/css/bootstrap.min.css" />
+</head>
+<body class="no-skin">
+    <p>@*@Html.ValidationSummary()*@</p>
+    <div class="container1" style="margin:0px;width:700px;">
+        @using (Ajax.BeginForm("StaffInfo", "StaffMgr", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "staffsuccess(data);" }, new { @class = "form-horizontal" }))
         {
             @Html.HiddenFor(model => model.DepartmentId)
-
             <input type="hidden" value="@ViewBag.actionStr" name="actionStr" />
-            <table class="tablestyle">
-                <thead>
-                    <tr>
-                        <td class="td1">登陆Id:</td>
-                        <td class="td2"><input id="LoginId" name="LoginId" value="@Model.LoginId" @(Model.LoginId != null ? "readonly" : "") /><span class="requiredspan">&nbsp;*</span></td>
-                        <td class="td3">
-                            <span id="spanPassword">密码:</span>
-                        </td>
-                        <td>
-                            <input maxlength="20" type="password" value="@Model.Password" name="Password" id="txtStaffPassword" class="textBoxRed" /><span class="requiredspan">&nbsp;*</span>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>姓名:</td>
-                        <td>@Html.EditorFor(model => model.Name)<span class="requiredspan">&nbsp;*</span></td>
-                        <td>已禁用:</td>
-                        <td>@Html.EditorFor(model => model.Disabled)</td>
-                    </tr>
-                    <tr>
-                        <td>排序ID:</td>
-                        <td>@Html.EditorFor(model => model.OrderId)<span class="requiredspan">&nbsp;*</span></td>
-                        <td>身份证号:</td>
-                        <td>@Html.EditorFor(model => model.IdCard)</td>
-                    </tr>
-                    <tr>
-                        <td>编号:</td>
-                        <td>@Html.EditorFor(model => model.Code)</td>
-                        <td>最高学历:</td>
-                        <td>@Html.EditorFor(model => model.DegreeTag)</td>
-                    </tr>
-                    <tr>
-                        <td>性别:</td>
-                        <td>@Html.EditorFor(model => model.Sex)</td>
-                        <td>政治面貌:</td>
-                        <td>@Html.EditorFor(model => model.PoliticalAppearanceTag)</td>
-                    </tr>
-                    <tr>
-                        <td>婚否:</td>
-                        <td>@Html.EditorFor(model => model.Married)</td>
-                        <td>出生日期:</td>
-                        <td>@Html.TextBoxFor(model => model.Birthday, new { @class = "Wdate", onclick = "WdatePicker()" })</td>
-                    </tr>
-                    <tr>
-                        <td>国籍:</td>
-                        <td>@Html.EditorFor(model => model.CountryTag)</td>
-                        <td>入职日期:</td>
-                        <td>@Html.TextBoxFor(model => model.EntersDay, new { @class = "Wdate", onclick = "WdatePicker()" })</td>
-                    </tr>
-                    <tr>
-                        <td>民族:</td>
-                        <td>@Html.EditorFor(model => model.NationTag)</td>
-                        <td>离职日期:</td>
-                        <td>@Html.TextBoxFor(model => model.LeavesDay, new { @class = "Wdate", onclick = "WdatePicker()" })</td>
-                    </tr>
-                    <tr>
-                        <td>职位:</td>
-                        <td>@Html.EditorFor(model => model.PositionTag)</td>
-                        <td>办公电话:</td>
-                        <td>@Html.EditorFor(model => model.OfficePhone)</td>
-                    </tr>
-                    <tr>
-                        <td>职称:</td>
-                        <td>@Html.EditorFor(model => model.TitleTag)</td>
-                        <td>分机号码:</td>
-                        <td>@Html.EditorFor(model => model.ExtNumber)</td>
-                    </tr>
-                    <tr>
-                        <td>手机:</td>
-                        <td>@Html.EditorFor(model => model.CellPhone)</td>
-                        <td>家庭电话:</td>
-                        <td>@Html.EditorFor(model => model.FamilyPhone)</td>
-                    </tr>
-                    <tr>
-                        <td>Email:</td>
-                        <td>@Html.EditorFor(model => model.Email)</td>
-                        <td>邮政编码:</td>
-                        <td>@Html.EditorFor(model => model.ZipCode)</td>
-                    </tr>
-                    <tr>
-                        <td>备注:</td>
-                        <td>@Html.EditorFor(model => model.Remark)</td>
-                        <td>家庭地址:</td>
-                        <td>@Html.EditorFor(model => model.Address)</td>
-                    </tr>
-                </tbody>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" value="确定" /></td>
-                </tr>
-            </table>
+            <div class="form-group form-group-sm">
+                <label class="col-xs-2 control-label text-right" for="loginid">登陆Id:</label>
+                <div class="col-xs-4">
+                    <input type="text" id="LoginId" name="LoginId" class="form-control" placeholder="" value="@Model.LoginId" @(Model.LoginId != null ? "readonly" : "")>
+                </div>
+                <label class="col-xs-2 control-label text-right" for="loginid">密码:</label>
+                <div class="col-xs-4">
+                    <input type="password" id="Password" name="Password" class="form-control" placeholder="" value="@Model.Password">
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-xs-2 control-label text-right" for="Name">姓名:</label>
+                <div class="col-xs-4">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                </div>
+                <label class="col-xs-2 control-label text-right" for="Disabled">禁用:</label>
+                <div class="col-xs-4">
+                    @Html.CheckBoxFor(model => model.Disabled)
+                </div>
+            </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label text-right" for="OrderId">排序ID:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.OrderId, new { @class = "form-control" })
+                    </div>
+                    <label class="col-xs-2 control-label text-right" for="IdCard">身份证号:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.IdCard, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label text-right" for="Code">编号:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.Code, new { @class = "form-control" })
+                    </div>
+                    <label class="col-xs-2 control-label text-right" for="DegreeTag">最高学历:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.DegreeTag, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label text-right" for="Sex">性别:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.Sex, new { @class = "form-control" })
+                    </div>
+                    <label class="col-xs-2 control-label text-right" for="PoliticalAppearanceTag">政治面貌:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.PoliticalAppearanceTag, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label text-right" for="Married">婚否:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.Married, new { @class = "form-control" })
+                    </div>
+                    <label class="col-xs-2 control-label text-right" for="Birthday">出生日期:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.Birthday, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label text-right" for="CountryTag">国籍:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.CountryTag, new { @class = "form-control" })
+                    </div>
+                    <label class="col-xs-2 control-label text-right" for="EntersDay">入职日期:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.EntersDay, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label text-right" for="NationTag">民族:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.NationTag, new { @class = "form-control" })
+                    </div>
+                    <label class="col-xs-2 control-label text-right" for="LeavesDay">离职日期:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.LeavesDay, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label text-right" for="Name">职位:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.PositionTag, new { @class = "form-control" })
+                    </div>
+                    <label class="col-xs-2 control-label text-right" for="Disabled">办公电话:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.OfficePhone, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label text-right" for="Name">职称:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.TitleTag, new { @class = "form-control" })
+                    </div>
+                    <label class="col-xs-2 control-label text-right" for="Disabled">分机号码:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.ExtNumber, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label text-right" for="Name">手机:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.CellPhone, new { @class = "form-control" })
+                    </div>
+                    <label class="col-xs-2 control-label text-right" for="Disabled">家庭电话:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.FamilyPhone, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label text-right" for="Email">Email:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                    </div>
+                    <label class="col-xs-2 control-label text-right" for="ZipCode">邮政编码:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.ZipCode, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label text-right" for="Name">备注:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.Remark, new { @class = "form-control" })
+                    </div>
+                    <label class="col-xs-2 control-label text-right" for="Disabled">家庭地址:</label>
+                    <div class="col-xs-4">
+                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-xs-2 control-label text-right" for=""></label>
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary">确定</button>
+                    </div>
+                </div>
         }
     </div>
 </body>

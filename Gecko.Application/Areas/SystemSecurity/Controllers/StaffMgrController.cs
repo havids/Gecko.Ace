@@ -48,7 +48,7 @@ namespace Gecko.Application.Areas.SystemSecurity.Controllers
             StaffDTO dto = new StaffDTO();
             dto.LoginId = staffDomain.LoginId;
             dto.Name = staffDomain.Name;
-            dto.Disabled = staffDomain.Disabled;
+            dto.Disabled = staffDomain.Disabled == 1 ? true : false;
             dto.OrderId = staffDomain.OrderId;
             dto.IdCard = staffDomain.IdCard;
             dto.Code = staffDomain.Code;
@@ -156,7 +156,7 @@ namespace Gecko.Application.Areas.SystemSecurity.Controllers
             StaffDTO dto = new StaffDTO();
             dto.LoginId = staffDomain.LoginId;
             dto.Name = staffDomain.Name;
-            dto.Disabled = staffDomain.Disabled;
+            dto.Disabled = staffDomain.Disabled == 1 ? true : false; 
             dto.OrderId = staffDomain.OrderId;
             dto.IdCard = staffDomain.IdCard;
             dto.Code = staffDomain.Code;

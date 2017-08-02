@@ -66,6 +66,12 @@ Syscodemgr.BtnEnable = function () {
 
 $(function () {
 
+    layer.config({
+        extend: 'gecko/style.css', //加载您的扩展样式
+        skin: 'geckoskin',
+        maxmin: false
+    });
+
     //绑定按钮事件 add edit del move
     $("#btnAdd").bind("click", function () {
         var sNode = Syscodemgr.selectedNode();
