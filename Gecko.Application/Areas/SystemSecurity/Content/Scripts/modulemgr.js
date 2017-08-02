@@ -45,6 +45,9 @@ ModuleMgr.LoadTree = function () {
         }
     });
 
+    ModuleMgr.panelClose();
+    ModuleMgr.BtnDisable();
+
 }
 //根据id获取当前权限代码的内容
 ModuleMgr.TreeNodeClick = function (ntype, id) {
@@ -63,16 +66,16 @@ ModuleMgr.TreeNodeClick = function (ntype, id) {
         ModuleMgr.panelOpen();
     }
     else if (ntype == "module") {
-        $('#mbtnAddModuleType').removeAttr("disabled");
+        $('#mbtnAddModuleType').attr("disabled", true); 
         $('#mbtnAddModule').attr("disabled", true);
-        $('#mbtnEdit').attr("disabled", true);
-        $('#mbtnDel').attr("disabled", true);
+        $('#mbtnEdit').removeAttr("disabled");
+        $('#mbtnDel').removeAttr("disabled");
         $.getJSON("/ModuleMgr/ModuleInfo/" + id, null, function (data, textStatus, jqXHR) {
             $('#txtModuleName').html(data.Name);
             $('#txtModuleOrderId').html(data.OrderId);
             $('#txtModuleRemark').html(data.Remark);
             $('#txtModuleTag').html(data.Tag);
-            $('#txtModuleDisable').html(data.Disabled==1?"是":"否");
+            $('#txtModuleDisable').html(data.Disabled?"是":"否");
             $('#txtModuleAddress').html(data.ModuleUrl);
             //清空divRights
             $("#divRights").html('');
@@ -83,7 +86,7 @@ ModuleMgr.TreeNodeClick = function (ntype, id) {
                 if (slist.length == 1)
                     $("#divRights").append("<div><i class=\"glyphicon glyphicon-remove\"></i>" + slist[0] + "</div>")
                 else
-                    $("#divRights").append("<div><i class=\"glyphicon glyphicon-ok\"></i>"  + slist[0] + "</div>")
+                    $("#divRights").append("<div><i class=\"glyphicon glyphicon-ok red\"></i>" + slist[0] + "</div>")
             })
         });
         ModuleMgr.panelOpen();
@@ -201,7 +204,7 @@ $(function () {
                 }, function () {
                     $.post("/ModuleMgr/DelModuleType/" + sNode.id, "", function (succeed, textStatus, jqXHR) {
                         if (succeed == "1") {
-                            Departmentmgr.LoadTree();
+                            ModuleMgr.LoadTree();
                             layer.msg("操作成功");
                         }
                         if (succeed == "-2") {
@@ -225,7 +228,7 @@ $(function () {
             }, function () {
                 $.post("/ModuleMgr/DelModule/" + sNode.id, "", function (succeed, textStatus, jqXHR) {
                     if (succeed == "1") {
-                        Departmentmgr.LoadTree();
+                        ModuleMgr.LoadTree();
                         layer.msg("操作成功");
                     }
                     if (succeed == "-2") {

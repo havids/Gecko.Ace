@@ -52,6 +52,7 @@ namespace Gecko.Application.Areas.SystemSecurity.Controllers
             mdto.OrderId = mt.OrderId;
             mdto.Remark = mt.Remark;
             mdto.Tag = mt.Tag;
+            mdto.Disabled = mt.Disabled == 1 ? true : false;
             //获取 syscode - rights
             SysCodeType sct = SysCodeTypeSrv.GetSysCodeTypeByTag("rights");
             if (sct != null)
@@ -123,6 +124,7 @@ namespace Gecko.Application.Areas.SystemSecurity.Controllers
                 mdto.OrderId = mt.OrderId;
                 mdto.Remark = mt.Remark;
                 mdto.Tag = mt.Tag;
+                mdto.Disabled = mt.Disabled == 1 ? true : false;
                 //获取 syscode - rights
                 SysCodeType sct = SysCodeTypeSrv.GetSysCodeTypeByTag("rights");
                 if (sct != null)

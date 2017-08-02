@@ -70,6 +70,9 @@ RoleMgr.LoadTree = function () {
         }
     });
 
+    RoleMgr.BtnDisable();
+    RoleMgr.panelClose();
+
 }
 //根据id获取当前权限代码的内容
 RoleMgr.TreeNodeClick = function (ntype, id) {

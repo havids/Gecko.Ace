@@ -1,18 +1,12 @@
 ﻿@model Gecko.Security.DTO.ModuleDTO
-
 @{
     Layout = null;
 }
-
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>ModuleTypeDTO</title>
-    <link type="text/css" href="~/Content/css/info.css" rel="stylesheet" />
-</head>
-<body>
+    <title>模块</title>
     <script src="~/Content/Scripts/jquery-1.8.2.min.js"></script>
     <script src="~/Content/Scripts/jquery.validate.min.js"></script>
     <script src="~/Content/Scripts/jquery.validate.unobtrusive.min.js"></script>
@@ -21,80 +15,86 @@
 
         function moduletypesuccess(data) {
             if (data == "1") {
-                alert("操作成功");
                 parent.modulemgrwinclose();
             }
-            else { alert(data); }
+            else { layer.msg(data); }
         }
 
     </script>
-    <div class="container" style="width:100%;">
-        @using (Ajax.BeginForm("ModuleInfo", "ModuleMgr", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "moduletypesuccess(data);" }))
-        {
-            <input name="Id" type="hidden" value="@Model.Id">
-            @Html.HiddenFor(model => model.ModuleTypeId)
-            <table>
-                <tr>
-                    <td>标示:</td>
-                    <td>
-                        @Html.EditorFor(model => model.Tag)<span class="requiredspan">&nbsp;*</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>名称:</td>
-                    <td>
-                        @Html.EditorFor(model => model.Name)<span class="requiredspan">&nbsp;*</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>排序ID:</td>
-                    <td>
-                        @Html.EditorFor(model => model.OrderId)<span class="requiredspan">&nbsp;*</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>备注:</td>
-                    <td>
-                        @Html.TextAreaFor(model => model.Remark)
-                    </td>
-                </tr>
-                <tr>
-                    <td>地址:</td>
-                    <td>
-                        @Html.TextAreaFor(model => model.ModuleUrl, new { style="width:299px;" })
-                    </td>
-                </tr>
-                <tr>
-                    <td>已禁用:</td>
-                    <td>
-                        @Html.CheckBox("Disabled", Model.Disabled )
-                    </td>
-                </tr>
-                <tr>
-                    <td>权限:</td>
-                    <td>
-                        <div id="divRights">
-                            @foreach (string s in Model.ModuleRights)
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="/content/assets/css/bootstrap.min.css" />
+</head>
+<body>
+    <p>@*@Html.ValidationSummary()*@</p>
+    @using (Ajax.BeginForm("ModuleInfo", "ModuleMgr", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "moduletypesuccess(data);" }, new { @class = "form-horizontal", style = "overflow:hidden;" }))
+    {
+        <input name="Id" type="hidden" value="@Model.Id">
+        @Html.HiddenFor(model => model.ModuleTypeId)
+        <div class="form-group">
+            <label class="col-sm-3 col-xs-3 control-label text-right" for="form-field-1"> 标示: </label>
+            <div class="col-sm-9 col-xs-6">
+                @Html.TextBoxFor(model => model.Tag, new { @class = "form-control" })
+            </div>
+            <label class="col-sm-1 col-xs-1 control-label" style="color:red;">*</label>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 col-xs-3 control-label text-right" for="form-field-1"> 名称: </label>
+            <div class="col-sm-9 col-xs-6">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+            </div>
+            <label class="col-sm-1 col-xs-1 control-label" style="color:red;">*</label>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 col-xs-3 control-label text-right" for="form-field-1"> 排序ID: </label>
+            <div class="col-sm-9 col-xs-6">
+                @Html.TextBoxFor(model => model.OrderId, new { @class = "form-control" })
+            </div>
+            <label class="col-sm-1 col-xs-1 control-label" style="color:red;">*</label>
+        </div>
+            <div class="form-group">
+                <label class="col-sm-3 col-xs-3 control-label text-right" for="form-field-1"> 备注: </label>
+                <div class="col-sm-9 col-xs-6">
+                    @Html.TextBoxFor(model => model.Remark, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 col-xs-3 control-label text-right" for="form-field-1"> 地址: </label>
+                <div class="col-sm-9 col-xs-6">
+                    @Html.TextBoxFor(model => model.ModuleUrl, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 col-xs-3 control-label text-right" for="form-field-1"> 禁用: </label>
+                <div class="col-sm-9 col-xs-6">
+                    @Html.CheckBox("Disabled", Model.Disabled)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 col-xs-3 control-label text-right" for="form-field-1"> 权限: </label>
+                <div class="col-sm-9 col-xs-6">
+                    <div id="divRights">
+                        @foreach (string s in Model.ModuleRights)
+                        {
+                            var rights = s.Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
+                            if (rights.Length == 4)
                             {
-                                var rights = s.Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
-                                if (rights.Length == 4)
-                                {
-                                    <div>@rights[0].ToString()<input type="checkbox" value="@rights[1].ToString()" name="moduleRights" checked id="@rights[2].ToString()" /></div>
-                                }
-                                else
-                                {
-                                    <div>@rights[0].ToString()<input type="checkbox" value="@rights[1].ToString()" name="moduleRights" id="@rights[2].ToString()" /></div>
-                                }
+                                <div><input type="checkbox" value="@rights[1].ToString()" name="moduleRights" checked id="@rights[2].ToString()" />&nbsp;@rights[0].ToString()</div>
                             }
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" value="确定" /></td>
-                </tr>
-            </table>
-        }
-    </div>
+                            else
+                            {
+                                <div><input type="checkbox" value="@rights[1].ToString()" name="moduleRights" id="@rights[2].ToString()" />&nbsp;@rights[0].ToString()</div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-3 col-xs-10">
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+
+    }
+
 </body>
 </html>
