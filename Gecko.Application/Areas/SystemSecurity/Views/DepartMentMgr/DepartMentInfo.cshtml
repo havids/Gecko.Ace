@@ -29,7 +29,7 @@
     <!-- bootstrap & fontawesome -->
     <link rel="stylesheet" href="/content/assets/css/bootstrap.min.css" />
 </head>
-<body>
+<body class="no-skin">
 
     <p>@*@Html.ValidationSummary()*@</p>
         @using (Ajax.BeginForm("DepartMentInfo", "DepartMentMgr", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "departmentsuccess(data);" }, new { @class = "form-horizontal", style = "overflow:hidden;" }))

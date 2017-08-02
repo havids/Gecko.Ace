@@ -3,8 +3,8 @@
 function Syscodemgr() { }
 //获取当前选中节点的 id，ntype
 Syscodemgr.selectedNode = function () { var node = $('#syscodemgr-easyui-tree').tree('getSelected'); return node; }
-Syscodemgr.panelOpen = function () { $("#syscodepanel").panel("open"); }
-Syscodemgr.panelClose = function () {$("#syscodepanel").panel("close");}
+Syscodemgr.panelOpen = function () { $(".widget-main").show(); }
+Syscodemgr.panelClose = function () { $(".widget-main").hide(); }
 //绑定tree 列表
 Syscodemgr.LoadTree = function () {
     $("#syscodemgr-easyui-tree").tree({
@@ -16,138 +16,160 @@ Syscodemgr.LoadTree = function () {
             }
         }
     });
-    
+    Syscodemgr.panelClose();
+    Syscodemgr.BtnDisable();
 }
 //根据id获取当前权限代码的内容
 Syscodemgr.TreeNodeClick = function (ntype, id) {
     if (ntype == "sysCodeType") {
         Syscodemgr.BtnEnable();
         $.getJSON("/SysCodeMgr/GetSysCodeTypeInfoJson/" + id, null, function (data, textStatus, jqXHR) {
-            $('#txtSysCodeTypeTag').textbox("setText", data.Tag);
-            $('#txtSysCodeTypeName').textbox("setText", data.Name);
-            $('#txtSysCodeTypeRemark').textbox("setText", data.Remark);
-            $('#txtSysCodeTypeOrderId').textbox("setText", data.OrderId);
+            $('#txtSysCodeTypeTag').html(data.Tag);
+            $('#txtSysCodeTypeName').html(data.Name);
+            $('#txtSysCodeTypeRemark').html(data.Remark);
+            $('#txtSysCodeTypeOrderId').html(data.OrderId);
         });
         Syscodemgr.panelOpen();
     }
     else if (ntype == "sysCode") {
-        $('#btnAdd').linkbutton('disable');
-        $('#btnEdit').linkbutton('enable');
-        $('#btnDel').linkbutton('enable');
+        $('#btnAdd').attr("disabled", true);
+        $('#btnEdit').removeAttr("disabled");
+        $('#btnDel').removeAttr("disabled");
         $.getJSON("/SysCodeMgr/GetSysCodeInfoJson/" + id, null, function (data, textStatus, jqXHR) {
-            $('#txtSysCodeTypeTag').textbox("setText", data.Tag);
-            $('#txtSysCodeTypeName').textbox("setText", data.Name);
-            $('#txtSysCodeTypeRemark').textbox("setText", data.Remark);
-            $('#txtSysCodeTypeOrderId').textbox("setText", data.OrderId);
+            $('#txtSysCodeTypeTag').html(data.Tag);
+            $('#txtSysCodeTypeName').html(data.Name);
+            $('#txtSysCodeTypeRemark').html(data.Remark);
+            $('#txtSysCodeTypeOrderId').html(data.OrderId);
         });
         Syscodemgr.panelOpen();
     }
     else {
-        $('#btnAdd').linkbutton('enable');
-        $('#btnEdit').linkbutton('disable');
-        $('#btnDel').linkbutton('disable');
+        $('#btnAdd').removeAttr("disabled");
+        $('#btnEdit').attr("disabled", true);
+        $('#btnDel').attr("disabled", true);
         Syscodemgr.panelClose();
     }
 
 }
 //disable 所有的button
 Syscodemgr.BtnDisable = function () {
-    $('#btnAdd').linkbutton('disable');
-    $('#btnEdit').linkbutton('disable');
-    $('#btnDel').linkbutton('disable');
+    $('#btnAdd').attr("disabled", true);
+    $('#btnEdit').attr("disabled", true);
+    $('#btnDel').attr("disabled", true);
 }
 //enable 所有的button
 Syscodemgr.BtnEnable = function () {
-    $('#btnAdd').linkbutton('enable');
-    $('#btnEdit').linkbutton('enable');
-    $('#btnDel').linkbutton('enable');
+    $('#btnAdd').removeAttr("disabled");
+    $('#btnEdit').removeAttr("disabled");
+    $('#btnDel').removeAttr("disabled");
 }
 
 $(function () {
 
-    //初始化 window
-    $('#syscodewin').window({
-        collapsible: false,
-        minimizable: false,
-        maximizable: false,
-        top: 230,
-        closed: true,
-        modal: true,
-        width: 330
-    });
     //绑定按钮事件 add edit del move
     $("#btnAdd").bind("click", function () {
         var sNode = Syscodemgr.selectedNode();
         var typestr = sNode.ntype;
-        if (typestr == "root") {
-            $("#syscodewin").panel("setTitle", "新增系统代码分类");
-            var content = "<iframe  id=\"syscodemgr_iframe\" name=\"syscodemgr_iframe\" height=\"230px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/SysCodeMgr/SysCodeTypeCreate\"></iframe>";
-            $("#syscodewin").html(content);
+        var url = "/SystemSecurity/SysCodeMgr/SysCodeTypeCreate";
+        var title = "新增系统代码分类";
+        if (typestr == "sysCodeType") {
+            title = "新增系统代码";
+            url = "/SystemSecurity/SysCodeMgr/SysCodeCreate/" + sNode.id;
         }
-        else if (typestr == "sysCodeType") {
-            $("#syscodewin").panel("setTitle", "新增系统代码");
-            var content = "<iframe  id=\"syscodemgr_iframe\" name=\"syscodemgr_iframe\" height=\"230px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/SysCodeMgr/SysCodeCreate/" + sNode.id + "\"></iframe>";
-            $("#syscodewin").html(content);
-        }
-        $("#syscodewin").window("open");
+        
+        layer.open({
+            title: title,
+            type: 2,
+            maxmin: false,
+            area: ['530px', '430px'],
+            fixed: false, //不固定
+            maxmin: false,
+            content: url
+        });
+
     })
     $("#btnEdit").bind("click", function () {
-        debugger;
+       
         var sNode = Syscodemgr.selectedNode();
         var typestr = sNode.ntype;
-        if (typestr == "sysCodeType") {
-            $("#syscodewin").panel("setTitle", "编辑系统代码分类");
-            var content = "<iframe  id=\"syscodemgr_iframe\" name=\"syscodemgr_iframe\" height=\"230px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/SysCodeMgr/SysCodeTypeEdit/" + sNode.id + "\"></iframe>";
-            $("#syscodewin").html(content);
+        var url = "/SystemSecurity/SysCodeMgr/SysCodeTypeEdit/"+sNode.id;
+        var title = "编辑系统代码分类";
+
+        if (typestr == "sysCode") {
+            url = "/SystemSecurity/SysCodeMgr/SysCodeEdit/" + sNode.tag;
+            title = "编辑系统代码";
         }
-        else if (typestr == "sysCode") {
-            $("#syscodewin").panel("setTitle", "编辑系统代码");
-            var content = "<iframe  id=\"syscodemgr_iframe\" name=\"syscodemgr_iframe\" height=\"230px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/SysCodeMgr/SysCodeEdit/" + sNode.tag + "\"></iframe>";
-            $("#syscodewin").html(content);
-        }
-        $("#syscodewin").window("open");
+        
+        layer.open({
+            title: title,
+            type: 2,
+            maxmin: false,
+            area: ['530px', '430px'],
+            fixed: false, //不固定
+            maxmin: false,
+            content: url
+        });
+
     })
+
     $("#btnDel").bind("click", function () {
         var sNode = Syscodemgr.selectedNode();
         var typestr = sNode.ntype;
         if (typestr == "sysCodeType") {
             var nodes = $('#syscodemgr-easyui-tree').tree('getChildren', Syscodemgr.selectedNode().target);
             if (nodes.length > 0)
-                alert("提示：当前系统代码分类包含系统代码，所以不能被删除。");
+                layer.msg("提示：当前系统代码分类包含系统代码，所以不能被删除。");
             else {
-                if (confirm("您确实要删除当前系统代码分类吗？")) {
+
+                var confirmIndex = layer.confirm('您确实要删除当前系统代码分类吗？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
                     $.post("/SysCodeMgr/SysCodeTypeDel/" + sNode.id, "", function (succeed, textStatus, jqXHR) {
                         if (succeed == "1") {
                             Syscodemgr.LoadTree();
+                            layer.msg("操作成功");
                         }
                         if (succeed == "-2") {
-                            alert("提示：当前系统代码分类包含系统代码，所以不能被删除。");
+                            layer.msg("提示：当前系统代码分类包含系统代码，所以不能被删除。");
                         }
                         else if (succeed == "-1") {
                             //alert(Message.serverError);
                         }
                     })
-                }
+                    layer.close(confirmIndex);
+                }, function () {
+                    layer.close(confirmIndex);
+                });
+
             }
         }
         else if (typestr == "sysCode") {
-            if (confirm("您确实要删除当前系统代码吗？")) {
+
+            var confirmIndex = layer.confirm('您确实要删除当前系统代码吗？', {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
                 $.post("/SysCodeMgr/SysCodeDel/" + sNode.id, "", function (succeed, textStatus, jqXHR) {
                     if (succeed == "1") {
                         Syscodemgr.LoadTree();
+                        layer.msg("操作成功");
                     }
                     if (succeed == "-2") {
-                        alert("提示：当前系统代码分类包含系统代码，所以不能被删除。");
+                        layer.msg("提示：当前系统代码分类包含系统代码，所以不能被删除。");
                     }
                     else if (succeed == "-1") {
                         //alert(Message.serverError);
                     }
                 })
-            }
+                layer.close(confirmIndex);
+            }, function () {
+                layer.close(confirmIndex);
+            });
+
         }
     })
    
     //加载tree
     Syscodemgr.LoadTree();
+    Syscodemgr.panelClose();
 
 })
