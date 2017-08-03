@@ -25,7 +25,14 @@ namespace Gecko.Application.Controllers
         {
             return View();
         }
-
+        /// <summary>
+        /// 欢迎页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Welcome()
+        {
+            return View();
+        }
         /// <summary>
         /// 获取左侧 Menu 列表
         /// </summary>
