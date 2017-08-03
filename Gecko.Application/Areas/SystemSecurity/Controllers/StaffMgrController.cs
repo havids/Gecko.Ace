@@ -89,9 +89,9 @@ namespace Gecko.Application.Areas.SystemSecurity.Controllers
                 if (actionStr == "insert")
                 {
                     //默认值
-                    dto.Birthday = dto.Birthday ?? DateTime.Now;
-                    dto.EntersDay = dto.EntersDay ?? DateTime.Now;
-                    dto.LeavesDay = dto.LeavesDay ?? DateTime.Now;
+                    //dto.Birthday = dto.Birthday ?? DateTime.MinValue;
+                    //dto.EntersDay = dto.EntersDay ?? DateTime.MinValue;
+                    //dto.LeavesDay = dto.LeavesDay ?? DateTime.MinValue;
                     string result = StaffSrv.InsertStaff(dto);
                     if (!string.IsNullOrEmpty(result) && result != "-2")
                         result = "1";
@@ -182,7 +182,7 @@ namespace Gecko.Application.Areas.SystemSecurity.Controllers
 
             //将时间格式化成 yyyy-MM-dd 格式
             IsoDateTimeConverter timeFormat = new IsoDateTimeConverter();
-            timeFormat.DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+            timeFormat.DateTimeFormat = "yyyy-MM-dd";
 
             string json = JsonConvert.SerializeObject(dto, timeFormat);
 
