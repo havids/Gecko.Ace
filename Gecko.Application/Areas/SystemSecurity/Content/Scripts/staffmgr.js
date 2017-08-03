@@ -243,7 +243,7 @@ $(function () {
         }, function () {
             $.post("/SystemSecurity/StaffMgr/StaffDel/" + sNode.id, "", function (succeed, textStatus, jqXHR) {
                 if (succeed == "1") {
-                    SStaffmgr.LoadTree();
+                    Staffmgr.LoadTree();
                     Staffmgr.departmentpanelClose();
                     Staffmgr.staffpanelClose();
                     Staffmgr.BtnDisable();

@@ -7,11 +7,12 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Permission</title>
+    <title>角色赋值</title>
     <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="~/Content/Scripts/jquery-easyui/themes/icon.css">
     <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.min.js"></script>
     <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/layer/layer.js"></script>
 </head>
 <body>
     <div>
@@ -33,12 +34,14 @@
                 $.each(nodes, function (i, n) { grantRoles += "|" + n.id });
                 $.post('/StaffMgr/RolesUpdate',{Id:loginId,sRoleIds:grantRoles}, function (data) {
                     if (data == "1") {
-                        parent.staffPwdWinclose();
+                        layer.msg("操作成功", { time: 500 }, function () {
+                            parent.staffmgrwinclose();
+                        })
                     }
-                    else { alert("error"); }
+                    else { layer.msg(data); }
                 })
             }
-            else { alert('请选择权限'); }
+            else { layer.msg("请选择权限"); }
         })
         //绑定tree
         $("#roles-easyui-tree").tree({
