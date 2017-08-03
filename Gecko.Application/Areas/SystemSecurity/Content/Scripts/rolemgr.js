@@ -170,7 +170,7 @@ $(function () {
     $("#rbtnSecurity").bind("click", function () {
         var sNode = RoleMgr.selectedNode();
         layer.open({
-            title: '新增角色',
+            title: '角色授权',
             type: 2,
             maxmin: false,
             area: ['530px', '430px'],

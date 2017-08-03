@@ -13,12 +13,15 @@
     <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.min.js"></script>
     <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="~/Content/Scripts/layer/layer.js"></script>
+    <link rel="stylesheet" href="/content/assets/css/bootstrap.min.css" />
 </head>
 <body>
-    <div>
+    <div style="padding:9px; ">
         <input type="hidden" value="@ViewBag.roleId" id="roleId" />
         <ul id="permission-easyui-tree" style="font-size:12px;">正在加载......</ul>
-        <div style="padding-left:23px; padding-top:13px;"><input type="button" id="permissionBtnOK" value="确定" /></div>
+        <div style="padding-left:23px; padding-top:13px;">
+            <input type="button" class="btn btn-primary" id="permissionBtnOK" value="确定" />
+        </div>
     </div>
 </body>
 </html>
@@ -30,14 +33,14 @@
             var nodes = $("#permission-easyui-tree").tree('getChecked');
             if (nodes.length > 0) {
                 var roleId = $("#roleId").val();
-                var grantRights='';
-                $.each(nodes,function(i,n){ grantRights+="|"+n.id });
+                var grantRights = '';
+                $.each(nodes, function (i, n) { grantRights += "|" + n.id });
                 $.post('/RoleMgr/PermissionsUpdate', { Id: roleId, arrGrantStr: grantRights }, function (data) {
                     if (data == "1") {
                         layer.msg("操作成功", { time: 500 }, function () {
                             parent.rolemgrwinclose();
                         })
-                        
+
                     }
                     else { layer.msg("error"); }
                 })

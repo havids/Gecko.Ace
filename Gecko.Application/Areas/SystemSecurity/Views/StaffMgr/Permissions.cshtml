@@ -13,12 +13,15 @@
     <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.min.js"></script>
     <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="~/Content/Scripts/layer/layer.js"></script>
+    <link rel="stylesheet" href="/content/assets/css/bootstrap.min.css" />
 </head>
 <body>
-    <div>
+    <div style="padding:9px; ">
         <input type="hidden" value="@ViewBag.loginId" id="loginId" />
         <ul id="staffpermission-easyui-tree"></ul>
-        <div style="padding-left:23px; padding-top:13px;"><input type="button" id="staffPermissionBtnOK" value="确定" /></div>
+        <div style="padding-left:23px; padding-top:13px;">
+        <input type="button" class="btn btn-primary" id="staffPermissionBtnOK" value="确定" />
+        </div>
     </div>
 </body>
 </html>
@@ -49,7 +52,11 @@
             checkbox: true,
             lines: true,
             onlyLeafCheck: true,
-            method: 'post'
+            method: 'post',
+            onLoadSuccess: function () {
+                //默认展开所有节点
+                $("#staffpermission-easyui-tree").tree("expandAll");
+            }
         })
     })
 
