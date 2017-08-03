@@ -15,7 +15,10 @@
 
         function moduletypesuccess(data) {
             if (data == "1") {
-                parent.modulemgrwinclose();
+                layer.msg("操作成功", { time: 1000 }, function () {
+                    parent.modulemgrwinclose();
+                })
+                
             }
             else { layer.msg(data); }
         }

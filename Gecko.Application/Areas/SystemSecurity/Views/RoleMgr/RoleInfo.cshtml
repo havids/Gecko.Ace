@@ -19,7 +19,11 @@
 
         function roletypesuccess(data) {
             if (data == "1") {
-                parent.rolemgrwinclose();
+
+                layer.msg("操作成功", { time: 500 }, function () {
+                    parent.rolemgrwinclose();
+                })
+                
             }
             else { layer.msg(data); }
         }

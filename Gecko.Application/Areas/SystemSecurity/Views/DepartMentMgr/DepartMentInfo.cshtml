@@ -19,8 +19,11 @@
 
         function departmentsuccess(data) {
             if (data == "1") {
+
+                layer.msg("操作成功", { time: 500 }, function () {
+                    parent.departmentwinclose();
+                })
                 
-                parent.departmentwinclose();
             }
             else { layer.msg(data); }
         }

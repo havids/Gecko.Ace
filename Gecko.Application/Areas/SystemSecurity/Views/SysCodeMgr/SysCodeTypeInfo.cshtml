@@ -19,7 +19,10 @@
 
         function syscodesuccess(data) {
             if (data == "1") {
-                parent.syscodemgrwinclose();
+                layer.msg("操作成功", { time: 500 }, function () {
+                    parent.syscodemgrwinclose();
+                })
+                
             }
             else { layer.msg(data); }
         }
