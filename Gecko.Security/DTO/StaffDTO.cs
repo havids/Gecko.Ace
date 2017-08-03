@@ -36,9 +36,7 @@ namespace Gecko.Security.DTO
         public string ZipCode { get; set; }
         public string Remark { get; set; }
         public int IsInnerUser { get; set; }
-        [Required(ErrorMessage = "已禁用不能为空")]
-        [Range(0,1)]
-        public int Disabled { get; set; }
+        public bool Disabled { get; set; }
         [Required(ErrorMessage = "排序Id不能为空")]
         [Range(1,int.MaxValue,ErrorMessage="排序Id必须大于0")]
         public int OrderId { get; set; }
