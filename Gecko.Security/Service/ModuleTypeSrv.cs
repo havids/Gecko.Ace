@@ -22,7 +22,6 @@ namespace Gecko.Security.Service
         /// <returns>所有顶层的模块分类实例。</returns>
         public static IList GetAllTopModuleType()
         {
-            //TODO 设置第三方缓存 memcache 
             string hql = "from ModuleType m where m.ParentModuleType is null order by m.OrderId";
             IQuery q = Db.Session.CreateQuery(hql);
             q.SetCacheable(true);

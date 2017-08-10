@@ -68,7 +68,7 @@ namespace Gecko.Security.Service
             s.LoginId = dto.LoginId;
             s.Password = StringSecurity.StringToSHA1Hash(dto.Password);
             s.Name = dto.Name;
-            s.Disabled = dto.Disabled;
+            s.Disabled = dto.Disabled ? 1 : 0;
             s.OrderId = dto.OrderId;
             s.IdCard = dto.IdCard;
             s.Code = dto.Code;
@@ -84,11 +84,11 @@ namespace Gecko.Security.Service
             s.Sex = dto.Sex;
             s.PoliticalAppearanceTag = dto.PoliticalAppearanceTag;
             s.Married = dto.Married;
-            s.Birthday = dto.Birthday.Value;
+            s.Birthday = dto.Birthday.HasValue ? dto.Birthday : null;
             s.CountryTag = dto.CountryTag;
-            s.EntersDay = dto.EntersDay.Value;
+            s.EntersDay = dto.EntersDay.HasValue ? dto.EntersDay : null;
             s.NationTag = dto.NationTag;
-            s.LeavesDay = dto.LeavesDay.Value;
+            s.LeavesDay = dto.LeavesDay.HasValue ? dto.LeavesDay : null;
             s.PositionTag = dto.PositionTag;
             s.TitleTag = dto.TitleTag;
 
@@ -113,7 +113,7 @@ namespace Gecko.Security.Service
         {
             Staff s = Db.Session.Load(typeof(Staff), dto.LoginId) as Staff;
             s.Name = dto.Name;
-            s.Disabled = dto.Disabled;
+            s.Disabled = dto.Disabled ? 1 : 0;
             s.OrderId = dto.OrderId;
             s.IdCard = dto.IdCard;
             s.Code = dto.Code;
