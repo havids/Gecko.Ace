@@ -1177,6 +1177,17 @@
     <Content Include="Content\Scripts\jquery.validate.min.js" />
     <Content Include="Content\Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Content\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Content\Scripts\jsrender.min.js" />
+    <Content Include="Content\Scripts\layer\layer.js" />
+    <Content Include="Content\Scripts\layer\mobile\layer.js" />
+    <Content Include="Content\Scripts\layer\mobile\need\layer.css" />
+    <Content Include="Content\Scripts\layer\skin\default\icon-ext.png" />
+    <Content Include="Content\Scripts\layer\skin\default\icon.png" />
+    <Content Include="Content\Scripts\layer\skin\default\layer.css" />
+    <Content Include="Content\Scripts\layer\skin\default\loading-0.gif" />
+    <Content Include="Content\Scripts\layer\skin\default\loading-1.gif" />
+    <Content Include="Content\Scripts\layer\skin\default\loading-2.gif" />
+    <Content Include="Content\Scripts\layer\skin\gecko\style.css" />
     <Content Include="Content\Scripts\My97DatePicker\calendar.js" />
     <Content Include="Content\Scripts\My97DatePicker\config.js" />
     <Content Include="Content\Scripts\My97DatePicker\lang\en.js" />
@@ -1334,6 +1345,9 @@
     <Content Include="Content\assets\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\assets\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\assets\fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Welcome.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

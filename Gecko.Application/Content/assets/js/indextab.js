@@ -138,7 +138,7 @@
             if (flag) {
                 var str = '<a href="javascript:;" class="active menuTab" data-id="' + dataUrl + '">' + menuName + ' <i class="fa fa-remove"></i></a>';
                 $('.menuTab').removeClass('active');
-                var str1 = '<iframe class="ace_iframe" id="iframe' + dataId + '" name="iframe' + dataId + '"  width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
+                var str1 = '<iframe class="ace_iframe" id="iframe' + dataId + '" name="iframe' + dataId + '"  width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '"></iframe>';
                 $('.mainContent').find('iframe.ace_iframe').hide();
                 $('.mainContent').append(str1);
                 //显示 加载过渡动画 
@@ -298,6 +298,6 @@
         }
     };
     $(function () {
-        $.acetab.init();
+        //$.acetab.init();
     });
 })(jQuery);
