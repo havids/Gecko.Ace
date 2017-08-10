@@ -333,7 +333,7 @@
 
                         <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                             <li>
-                                <a href="javascript:void(0);">
+                                <a href="javascript:void(0);" id="cpwd">
                                     <i class="ace-icon fa fa-cog"></i>
                                     修改密码
                                 </a>
@@ -493,6 +493,7 @@
     <!----tabs-->
     <script type="text/javascript" src="/content/assets/js/indextab.js"></script>
     <script type="text/javascript" src="~/Content/Scripts/jsrender.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/layer/layer.js"></script>
     <!-- inline scripts related to this page -->
     <script type="text/javascript">
         $(function () {
@@ -514,6 +515,18 @@
                 $("#nav-list").html(htmlstr);
                 //左侧菜单初始化
                 $.acetab.init();
+            })
+            //修改密码
+            $("#cpwd").bind("click", function () {
+                layer.open({
+                    title: '修改密码',
+                    type: 2,
+                    maxmin: false,
+                    area: ['530px', '430px'],
+                    fixed: false, //不固定
+                    maxmin: false,
+                    content: "/SystemSecurity/StaffMgr/ChangePassword"
+                });
             })
 
         })
