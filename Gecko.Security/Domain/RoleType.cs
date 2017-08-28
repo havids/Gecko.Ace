@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Gecko.Security.Domain
 {
@@ -92,8 +93,8 @@ namespace Gecko.Security.Domain
             _remark = String.Empty;
             _order_id = 0;
             _parent_role_type = null;
-            _roles = new ArrayList();
-            _sub_role_types = new ArrayList();
+            _roles = new List<Role>();
+            _sub_role_types = new List<RoleType>();
         }
 
         #endregion
