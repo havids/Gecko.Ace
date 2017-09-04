@@ -473,9 +473,9 @@ namespace Gecko.Application.Areas.SystemSecurity.Controllers
         }
 
         //修改密码
-        public ActionResult ChangePassword(string Id)
+        public ActionResult ChangePassword()
         {
-            ViewBag.loginId = Id;
+            ViewBag.loginId = SessionUtil.GetStaffSession().LoginId;
             return View();
         }
         [HttpPost]
