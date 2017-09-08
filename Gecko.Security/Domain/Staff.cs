@@ -453,8 +453,17 @@ namespace Gecko.Security.Domain
 
             return hasRoleGrant;
         }
-
-
+        /// <summary>
+        /// 根据 moduletag rights_tag 获取用户是否有权限
+        /// </summary>
+        /// <param name="moduleTag"></param>
+        /// <returns></returns>
+        public virtual bool HasGrantPermission(string moduleTag,string rightsTag)
+        {
+            var m = Gecko.Security.Service.ModuleSrv.GetModuleByTag(moduleTag);
+            ModuleRight mr = Gecko.Security.Service.ModuleRightSrv.GetModuleRight(m, rightsTag);
+            return this.HasGrantPermission(mr);
+        }
         /// <summary>
         /// 获取对于某模块的所有肯定授权的权限标示。
         /// </summary>
