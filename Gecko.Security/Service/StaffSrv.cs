@@ -129,11 +129,11 @@ namespace Gecko.Security.Service
             s.Sex = dto.Sex;
             s.PoliticalAppearanceTag = dto.PoliticalAppearanceTag;
             s.Married = dto.Married;
-            s.Birthday = dto.Birthday.Value;
+            s.Birthday = dto.Birthday.HasValue ? dto.Birthday : null;
             s.CountryTag = dto.CountryTag;
-            s.EntersDay = dto.EntersDay.Value;
+            s.EntersDay = dto.EntersDay.HasValue ? dto.EntersDay : null;
             s.NationTag = dto.NationTag;
-            s.LeavesDay = dto.LeavesDay.Value;
+            s.LeavesDay = dto.LeavesDay.HasValue ? dto.LeavesDay : null;
             s.PositionTag = dto.PositionTag;
             s.TitleTag = dto.TitleTag;
 
