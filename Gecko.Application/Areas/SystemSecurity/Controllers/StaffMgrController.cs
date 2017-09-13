@@ -88,10 +88,6 @@ namespace Gecko.Application.Areas.SystemSecurity.Controllers
                 //添加
                 if (actionStr == "insert")
                 {
-                    //默认值
-                    //dto.Birthday = dto.Birthday ?? DateTime.MinValue;
-                    //dto.EntersDay = dto.EntersDay ?? DateTime.MinValue;
-                    //dto.LeavesDay = dto.LeavesDay ?? DateTime.MinValue;
                     string result = StaffSrv.InsertStaff(dto);
                     if (!string.IsNullOrEmpty(result) && result != "-2")
                         result = "1";
