@@ -16,6 +16,7 @@ using Newtonsoft.Json.Serialization;
 namespace Gecko.Application.Controllers
 {
     [LoginFilter]
+    [ViewFilter]
     public class HomeController : Controller
     {
         //
