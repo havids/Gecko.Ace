@@ -126,11 +126,11 @@ $(function () {
     $("#mbtnAddModuleType").bind("click", function () {
         var sNode = ModuleMgr.selectedNode();
         var typestr = sNode.ntype;
-        var url = '/SystemSecurity/ModuleMgr/CreateModuleType';
-        if (typestr == "moduletype") {
-            var content = "<iframe  id=\"ModuleMgr_iframe\" name=\"ModuleMgr_iframe\" height=\"190px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/ModuleMgr/CreateModuleType/" + sNode.id + "\"></iframe>";
-            $("#modulewin").html(content);
-        }
+        var url = '/SystemSecurity/ModuleMgr/CreateModuleType/' + sNode.id;
+        //if (typestr == "moduletype") {
+        //    var content = "<iframe  id=\"ModuleMgr_iframe\" name=\"ModuleMgr_iframe\" height=\"190px\" width=\"100%\" frameborder=\"0\"  src=\"/SystemSecurity/ModuleMgr/CreateModuleType/" + sNode.id + "\"></iframe>";
+        //    $("#modulewin").html(content);
+        //}
 
         layer.open({
             title: '新增模块分类',
