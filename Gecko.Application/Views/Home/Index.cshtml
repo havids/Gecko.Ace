@@ -54,7 +54,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <div class="navbar-header pull-left">
+            <div class="navbar-header pull-left">   
                 <a href="index.html" class="navbar-brand">
                     <small>
                         <i class="fa fa-leaf"></i>
@@ -405,9 +405,10 @@
                     <b class="arrow"></b>
                 </li>
                 {{for data}}
+                {{if children && children.length>0}}
                 <li class="">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="menu-icon fa fa-desktop"></i>
+                    <a href="javascript:void(0)" class="dropdown-toggle">
+                        <i class="menu-icon {{:tag}}"></i>
                         <span class="menu-text">
                             {{:text}}
                         </span>
@@ -418,7 +419,7 @@
                     <b class="arrow"></b>
 
                     <ul class="submenu">
-
+                        {{if children}}
                         {{for children}}
                         <li class="">
                             <a href="{{:suburl}}" class="menuItem" data-id="{{:suburl}}">
@@ -429,8 +430,10 @@
                             <b class="arrow"></b>
                         </li>
                         {{/for}}
+                        {{/if}}
                     </ul>
                 </li>
+                {{/if}}
                 {{/for}}
             </script>
             <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">

@@ -37,6 +37,14 @@ namespace Gecko.Application.Filters
                     }
                 }
             }
+            else if(SessionUtil.GetStaffSession()!=null)
+            {
+                //保存当前的 moduleTag
+                //action 需与 后台模块添加时的 moduletag 保持一致
+                SessionUtil.SavaModuleTag(currentAction);
+                //保存当前用户的 权限信息
+                PermissionUtil.SaveGrantPermissionsToSession();
+            }
 
             base.OnActionExecuting(filterContext);
         }

@@ -137,6 +137,7 @@
     <Compile Include="Controllers\LogonController.cs" />
     <Compile Include="Filters\ExceptionFilter.cs" />
     <Compile Include="Filters\LoginFilter.cs" />
+    <Compile Include="Filters\ViewFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

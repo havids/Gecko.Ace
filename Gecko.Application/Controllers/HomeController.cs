@@ -45,12 +45,22 @@ namespace Gecko.Application.Controllers
         {
             //获取当前用户
             Staff staff = Gecko.Security.NHHelper.Db.Session.Load(typeof(Staff), SessionUtil.GetStaffSession().LoginId) as Staff;
-            IList moduleList = null;
-            //if (staff.IsInnerUser == 1)//如果是内置用户 
-            //平台如果集成单点登录 则获取当前的平台Id 加载对应的module列表
-            //else
-            //moduleList = Anole.Security.Service.ModuleTypeSrv.GetTopModuleType("0000000023");
-            moduleList = Gecko.Security.Service.ModuleTypeSrv.GetAllTopModuleType();
+
+            List<ModuleType> moduleList = null;
+
+            //适用于两个平台的分类 或者 单独模块的加载
+            //在 home index 页面增加 跳转链接
+            if (Request.QueryString["moduletype"]==null)
+            {
+                moduleList = Gecko.Security.Service.ModuleTypeSrv.GetAllTopModuleType().Cast<ModuleType>().ToList();
+            }
+            else if(Request.QueryString["moduletype"] != null)
+            {
+                var moduleType = Request.QueryString["moduletype"].ToString();
+                var moduleTopType = Gecko.Security.Service.ModuleTypeSrv.GetTopModuleType(moduleType)[0];
+                moduleList = ((ModuleType)moduleTopType).SubModuleTypes.Cast<ModuleType>().ToList();
+            }
+            //获取模块分类
             var nodeTypeList = GetModuleTypeList(moduleList, staff);
 
             return new ContentResult
@@ -67,10 +77,12 @@ namespace Gecko.Application.Controllers
             IList l = new List<NodeType>();
             foreach (ModuleType sub in ilModuleType)
             {
+
                 NodeType ntype = new NodeType();
                 ntype.id = sub.Id;
                 ntype.text = sub.Name;
                 ntype.ntype = "moduletype";
+                ntype.tag = sub.Remark;
 
                 if (sub.SubModuleTypes.Count > 0)
                 {
@@ -83,16 +95,42 @@ namespace Gecko.Application.Controllers
                     //IList l_module = new List<NodeType>();
                     foreach (Module m in sub.Modules)
                     {
-                        ModuleRight mr = Gecko.Security.Service.ModuleRightSrv.GetModuleRight(m, "rights_browse");
-                        if (mr != null)
+                        //如果禁用 则不显示
+                        if (m.Disabled == 1)
+                            continue;
+
+                        if (staff.IsInnerUser == 1)//如果是内置用户 平台如果集成单点登录 则获取当前的平台Id 加载对应的module列表
                         {
-                            if (staff.HasGrantPermission(mr))
+                            NodeType nsbutype = new NodeType();
+                            nsbutype.id = m.Id;
+                            nsbutype.text = m.Name;
+                            nsbutype.suburl = m.ModuleUrl;
+                            ntype.children.Add(nsbutype);
+                        }
+                        else
+                        {
+
+                            try
                             {
-                                NodeType nsbutype = new NodeType();
-                                nsbutype.id = m.Id;
-                                nsbutype.text = m.Name;
-                                nsbutype.suburl = m.ModuleUrl;
-                                ntype.children.Add(nsbutype);
+                                ModuleRight mr = Gecko.Security.Service.ModuleRightSrv.GetModuleRight(m, "rights_browse");
+                                if (mr != null)
+                                {
+                                    if (staff.HasGrantPermission(mr))
+                                    {
+                                        NodeType nsbutype = new NodeType();
+                                        nsbutype.id = m.Id;
+                                        nsbutype.text = m.Name;
+                                        nsbutype.suburl = m.ModuleUrl;
+                                        ntype.children.Add(nsbutype);
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+
+                                AiChou.Common.LOG.Trace(Common.LOG.ST.Day, "_admin", m.Id);
+                                AiChou.Common.LOG.Trace(Common.LOG.ST.Day, "_admin", ex.Message + "\r\n" + ex.Source);
+
                             }
                         }
                     }
