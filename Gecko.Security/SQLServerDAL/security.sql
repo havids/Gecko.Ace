@@ -1111,107 +1111,33 @@ PB_REGISTER_DATE DESC
 )
 go
 
-alter table dbo.PB_MODULE
-   add constraint MODULE_TYPE_REF_MODULE foreign key (PB_MODULE_TYPE_ID)
-      references dbo.PB_MODULE_TYPE (PB_ID)
-go
 
-alter table dbo.PB_MODULE_RIGHT
-   add constraint MODULE_REF_MODULE_RIGHT foreign key (PB_MODULE_ID)
-      references dbo.PB_MODULE (PB_ID)
-go
+--USE master
+--GO
 
-alter table dbo.PB_ROLE
-   add constraint ROLE_TYPE_REF_ROLE foreign key (PB_ROLE_TYPE_ID)
-      references dbo.PB_ROLE_TYPE (PB_ID)
-go
+--/* 自动收缩 */
+--ALTER DATABASE [Gecko17] SET AUTO_SHRINK ON WITH NO_WAIT
+--GO
 
-alter table dbo.PB_ROLE_MODULE_RIGHT_DENY
-   add constraint M_R_REF_ROLE_M_R_DENY foreign key (PB_RIGHT_ID)
-      references dbo.PB_MODULE_RIGHT (PB_ID)
-go
+--/* 简单还原模式 */
+--ALTER DATABASE [Gecko17] SET RECOVERY SIMPLE WITH NO_WAIT
+--GO
 
-alter table dbo.PB_ROLE_MODULE_RIGHT_DENY
-   add constraint ROLE_REF_ROLE_M_R_DENY foreign key (PB_ROLE_ID)
-      references dbo.PB_ROLE (PB_ID)
-go
+--/* 添加登录名 */
+--EXEC sp_addlogin 'PB_DB_USER', 'gecko130', 'Gecko17'
+--GO
 
-alter table dbo.PB_ROLE_MODULE_RIGHT_GRANT
-   add constraint M_R_REF_ROLE_M_R_GRANT foreign key (PB_RIGHT_ID)
-      references dbo.PB_MODULE_RIGHT (PB_ID)
-go
+--USE [Gecko17]
+--GO
 
-alter table dbo.PB_ROLE_MODULE_RIGHT_GRANT
-   add constraint ROLE_REF_ROLE_M_R_GRANT foreign key (PB_ROLE_ID)
-      references dbo.PB_ROLE (PB_ID)
-go
+--/* 添加用户 */
+--EXEC sp_adduser 'PB_DB_USER', 'PB_DB_USER'
+--GO
 
-alter table dbo.PB_STAFF
-   add constraint DEPARTMENT_REF_STAFF foreign key (PB_DEPARTMENT_ID)
-      references dbo.PB_DEPARTMENT (PB_ID)
-go
-
-alter table dbo.PB_STAFF_MODULE_RIGHT_DENY
-   add constraint M_R_REF_STAFF_M_R_DENY foreign key (PB_RIGHT_ID)
-      references dbo.PB_MODULE_RIGHT (PB_ID)
-go
-
-alter table dbo.PB_STAFF_MODULE_RIGHT_DENY
-   add constraint STAFF_REF_STAFF_M_R_DENY foreign key (PB_LOGIN_ID)
-      references dbo.PB_STAFF (PB_LOGIN_ID)
-go
-
-alter table dbo.PB_STAFF_MODULE_RIGHT_GRANT
-   add constraint M_R_REF_STAFF_M_R_GRANT foreign key (PB_RIGHT_ID)
-      references dbo.PB_MODULE_RIGHT (PB_ID)
-go
-
-alter table dbo.PB_STAFF_MODULE_RIGHT_GRANT
-   add constraint STAFF_REF_STAFF_M_R_GRANT foreign key (PB_LOGIN_ID)
-      references dbo.PB_STAFF (PB_LOGIN_ID)
-go
-
-alter table dbo.PB_STAFF_ROLE
-   add constraint ROLE_REF_STAFF_ROLE foreign key (PB_ROLE_ID)
-      references dbo.PB_ROLE (PB_ID)
-go
-
-alter table dbo.PB_STAFF_ROLE
-   add constraint STAFF_REF_STAFF_ROLE foreign key (PB_LOGIN_ID)
-      references dbo.PB_STAFF (PB_LOGIN_ID)
-go
-
-alter table dbo.PB_SYSCODE
-   add constraint SYSCODE_TYPE_REF_SYSCODE foreign key (PB_SYSCODE_TYPE_ID)
-      references dbo.PB_SYSCODE_TYPE (PB_ID)
-go
+--/* 为用户添加角色 */
+--EXEC sp_addrolemember 'db_datareader', 'PB_DB_USER'
+--GO
+--EXEC sp_addrolemember 'db_datawriter', 'PB_DB_USER'
+--GO
 
 
-
-USE master
-GO
-
-/* 自动收缩 */
-ALTER DATABASE [Gecko17] SET AUTO_SHRINK ON WITH NO_WAIT
-GO
-
-/* 简单还原模式 */
-ALTER DATABASE [Gecko17] SET RECOVERY SIMPLE WITH NO_WAIT
-GO
-
-/* 添加登录名 */
-EXEC sp_addlogin 'PB_DB_USER', '1234567890', 'Gecko17'
-GO
-
-USE [Gecko17]
-GO
-
-/* 添加用户 */
-EXEC sp_adduser 'PB_DB_USER', 'PB_DB_USER'
-GO
-
-/* 为用户添加角色 */
-EXEC sp_addrolemember 'db_datareader', 'PB_DB_USER'
-GO
-EXEC sp_addrolemember 'db_datawriter', 'PB_DB_USER'
-GO
