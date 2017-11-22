@@ -69,6 +69,7 @@ namespace Gecko.Application.Controllers
         public ActionResult Logout()
         {
             SessionUtil.RemoveStaffSession();
+            SessionUtil.RemoveGrantPermissions();
             return Redirect("/");
         }
 
