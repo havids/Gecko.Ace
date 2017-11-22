@@ -78,6 +78,9 @@ namespace Gecko.Application.Controllers
             foreach (ModuleType sub in ilModuleType)
             {
 
+                //当前 是否对 moduletype 下的 module 有肯定权限
+                bool isBrowse = false;
+
                 NodeType ntype = new NodeType();
                 ntype.id = sub.Id;
                 ntype.text = sub.Name;
@@ -122,22 +125,22 @@ namespace Gecko.Application.Controllers
                                         nsbutype.text = m.Name;
                                         nsbutype.suburl = m.ModuleUrl;
                                         ntype.children.Add(nsbutype);
+
+                                        isBrowse = true;
                                     }
                                 }
                             }
                             catch (Exception ex)
                             {
-
-                                AiChou.Common.LOG.Trace(Common.LOG.ST.Day, "_admin", m.Id);
-                                AiChou.Common.LOG.Trace(Common.LOG.ST.Day, "_admin", ex.Message + "\r\n" + ex.Source);
-
                             }
                         }
                     }
-                    //ntype.children = l_module;
                 }
 
-                l.Add(ntype);
+                //查看当前 模块 ntype 是否包含 module
+                if (isBrowse || staff.IsInnerUser == 1)
+                    l.Add(ntype);
+
             }
 
             return l;
