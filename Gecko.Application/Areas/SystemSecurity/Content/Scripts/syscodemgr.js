@@ -139,7 +139,7 @@ $(function () {
                             layer.msg("提示：当前系统代码分类包含系统代码，所以不能被删除。");
                         }
                         else if (succeed == "-1") {
-                            //alert(Message.serverError);
+                            layer.msg("操作失败");
                         }
                     })
                     layer.close(confirmIndex);
@@ -163,7 +163,7 @@ $(function () {
                         layer.msg("提示：当前系统代码分类包含系统代码，所以不能被删除。");
                     }
                     else if (succeed == "-1") {
-                        //alert(Message.serverError);
+                        layer.msg("操作失败");
                     }
                 })
                 layer.close(confirmIndex);

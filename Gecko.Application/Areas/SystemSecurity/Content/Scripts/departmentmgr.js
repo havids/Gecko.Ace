@@ -158,6 +158,7 @@ $(function () {
                     }
                     else if (succeed == "-1") {
                         //alert(Message.serverError);
+                        layer.msg("操作失败");
                     }
                 })
                 layer.close(confirmIndex);

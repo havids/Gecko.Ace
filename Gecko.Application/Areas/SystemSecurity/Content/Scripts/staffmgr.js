@@ -49,8 +49,12 @@ Staffmgr.LoadTree = function () {
                     Staffmgr.LoadTree();
                 else if (data == "-1") {
                     //返回失败 暂时不处理 (重新加载当前页面)
+                    layer.msg("操作失败");
                 }
-            }).fail(function () { /*提交失败 暂时不处理*/ });
+            }).fail(function () {
+                /*提交失败 暂时不处理*/
+                layer.msg("操作失败");
+            });
             //.always(function(){});
 
         },
@@ -249,7 +253,7 @@ $(function () {
                     Staffmgr.BtnDisable();
                 }
                 else if (succeed == "-1") {
-                    //alert(Message.serverError);
+                    layer.msg("操作失败");
                 }
             })
             layer.close(confirmIndex);

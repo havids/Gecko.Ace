@@ -230,7 +230,7 @@ $(function () {
                             layer.msg("提示：当前角色分类包含子角色，所以不能被删除。");
                         }
                         else if (succeed == "-1") {
-                            //alert(Message.serverError);
+                            layer.msg("操作失败");
                         }
                     })
                     layer.close(confirmIndex);
@@ -254,7 +254,7 @@ $(function () {
                         layer.msg("提示：当前角色包含子角色，所以不能被删除。");
                     }
                     else if (succeed == "-1") {
-                        //alert(Message.serverError);
+                        layer.msg("操作失败");
                     }
                 })
                 layer.close(confirmIndex);
