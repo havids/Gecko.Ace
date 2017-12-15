@@ -6,7 +6,7 @@ using System.Text;
 using System.Web;
 using System.IO;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     public class WebRequestCallbackData
     {
@@ -136,7 +136,7 @@ namespace Anxin.Common
             }
             request.Timeout = timeOut;
             request.Method = httpMethod;
-            request.UserAgent = "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.1667.0 Safari/537.36 AnxinDotnetHttpClient";
+            request.UserAgent = "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.1667.0 Safari/537.36 GeckoDotnetHttpClient";
             request.ContentType = "application/x-www-form-urlencoded";
 
             if (initiator != null)

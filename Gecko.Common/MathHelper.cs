@@ -6,7 +6,7 @@ using System.CodeDom.Compiler;
 using Microsoft.CSharp;
 using System.Reflection;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     public class MathHelper
     {

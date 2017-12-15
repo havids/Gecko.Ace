@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     /// <summary>
     /// 用于对时间类型的工具类

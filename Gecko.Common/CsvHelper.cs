@@ -6,7 +6,7 @@ using System.IO;
 using System.Web;
 using System.Web.UI;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     public class CsvHelper
     {

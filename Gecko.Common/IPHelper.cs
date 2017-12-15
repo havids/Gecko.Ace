@@ -5,7 +5,7 @@ using System.Text;
 using System.Data;
 using System.Configuration;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     public class IPHelper
     {

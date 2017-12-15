@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     /// <summary>
     /// 文件工具类
@@ -357,7 +357,7 @@ namespace Anxin.Common
 
         public static bool CheckFileSafe(string fileName)
         {
-            var array = Anxin.Common.Logic.UploadSafeFileType;
+            var array = Gecko.Common.Logic.UploadSafeFileType;
             Regex regex = null;
             for (int i = 0; i < array.GetLength(0); i++)
             {
@@ -370,7 +370,7 @@ namespace Anxin.Common
 
         public static int GetFileType(string fileName)
         {
-            var array = Anxin.Common.Logic.UploadSafeFileType;
+            var array = Gecko.Common.Logic.UploadSafeFileType;
             Regex regex = null;
             for (int i = 0; i < array.GetLength(0); i++)
             {

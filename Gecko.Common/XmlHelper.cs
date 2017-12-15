@@ -6,7 +6,7 @@ using System.Xml;
 using System.IO;
 
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     /// <summary>
     /// XML Helper扩展

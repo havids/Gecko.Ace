@@ -4,7 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.IO;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     public class RegexHelper
     {

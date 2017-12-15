@@ -3,7 +3,7 @@ using System.Text;
 using System.IO;
 using System.Threading;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     /// <summary>
     /// 对日志存储的封装

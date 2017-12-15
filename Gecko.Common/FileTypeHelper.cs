@@ -4,7 +4,7 @@ using System.Linq;
 using System.IO;
 using System.Text;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     public class FileTypeHelper
     {

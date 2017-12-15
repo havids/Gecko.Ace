@@ -2,7 +2,7 @@
 using System.IO;
 
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
 
     /// <summary>

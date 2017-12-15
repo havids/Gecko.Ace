@@ -8,12 +8,12 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Configuration;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     public class Utils
     {
-        public static readonly HashSet<string> AnxinIPs = new HashSet<string>(
-                from ip in (ConfigurationManager.AppSettings["AnxinIPs"] == null ? string.Empty : ConfigurationManager.AppSettings["AnxinIPs"]).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+        public static readonly HashSet<string> GeckoIPs = new HashSet<string>(
+                from ip in (ConfigurationManager.AppSettings["GeckoIPs"] == null ? string.Empty : ConfigurationManager.AppSettings["GeckoIPs"]).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 select ip.Trim()
             );
         private static Random _random = new Random(DateTime.Now.Millisecond);
@@ -426,9 +426,9 @@ namespace Anxin.Common
             return ("," + array + ",").IndexOf("," + s + ",") >= 0;
         }
 
-        public static bool IsAnxinIP(string address)
+        public static bool IsGeckoIP(string address)
         {
-            return AnxinIPs.Contains(address);
+            return GeckoIPs.Contains(address);
         }
 
 

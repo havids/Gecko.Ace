@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     public partial class VerifyCode
     {
@@ -246,7 +246,7 @@ namespace Anxin.Common
         /// <summary>
         /// 生产验证码的方法 
         /// </summary>
-        /// <param name="prefix">session前缀 例如anxindai</param>
+        /// <param name="prefix">session前缀 例如Geckodai</param>
         /// <param name="length">验证码长度 默认为4</param>
         /// <param name="EnCode">session后半截 加密后的字符串</param>
         /// <param name="context">context</param>
@@ -255,7 +255,7 @@ namespace Anxin.Common
             if (length < 2||length>8)
             { length = 4; }
             string code = VerifyCode.CreateVerifyCode(length);
-            Anxin.Common.SessionHelper.SetValue(EnCode, code);
+            Gecko.Common.SessionHelper.SetValue(EnCode, code);
             System.IO.MemoryStream ms = new System.IO.MemoryStream();
             Bitmap image = this.CreateImageCode(code);
             image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);

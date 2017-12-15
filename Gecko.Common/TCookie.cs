@@ -5,7 +5,7 @@ using System.Text;
 using System.Web;
 
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     public class TCookie
     {
@@ -131,7 +131,7 @@ namespace Anxin.Common
             SetCookie(key, value, maxExpires);
         }
 
-        public static string GetCookieAnxin(string key)
+        public static string GetCookieGecko(string key)
         {
             if (HttpContext.Current.Request == null) return "";
 
@@ -142,7 +142,7 @@ namespace Anxin.Common
             return Security.Decode(cookie.Value);
         }
 
-        public static string GetCookieAnxin2(string key)
+        public static string GetCookieGecko2(string key)
         {
             if (HttpContext.Current.Response == null) return "";
 
@@ -153,7 +153,7 @@ namespace Anxin.Common
             return Security.Decode(cookie.Value);
         }
 
-        public static void SetCookieAnxin2(string key, string value, int minute)
+        public static void SetCookieGecko2(string key, string value, int minute)
         {
             if (minute == -1)
                 minute = 7 * 24 * 60;
@@ -162,7 +162,7 @@ namespace Anxin.Common
             if (cookie == null)
             {
                 cookie = new HttpCookie(key, value);
-                cookie.Domain = "anxin.com";
+                cookie.Domain = "Gecko.com";
                 cookie.Expires = DateTime.Now.AddMinutes(minute);
                 HttpContext.Current.Response.Cookies.Add(cookie);
 
@@ -178,7 +178,7 @@ namespace Anxin.Common
             }
         }
 
-        public static void SetCookieAnxin(string key, string value, int minute)
+        public static void SetCookieGecko(string key, string value, int minute)
         {
             if (Request.Browser.Cookies == false) return;
 
@@ -187,7 +187,7 @@ namespace Anxin.Common
             if (string.IsNullOrEmpty(value)) minute = -1;
 
             HttpCookie cookie = new HttpCookie(key, value);
-            cookie.Domain = "anxin.com";
+            cookie.Domain = "Gecko.com";
 
            
             if (minute != 0)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     public class Logic
     {
@@ -2895,8 +2895,8 @@ namespace Anxin.Common
 
         public enum EnumDataBase
         {
-            AnxinExt = 100,
-            //AnxinBBS = 200,
+            GeckoExt = 100,
+            //GeckoBBS = 200,
         }
 
         public enum EnumDataTable
@@ -2911,7 +2911,7 @@ namespace Anxin.Common
         }
 
         /// <summary>
-        /// 藏宝图类型 对应 anxinext.HuodongLog TypeID
+        /// 藏宝图类型 对应 Geckoext.HuodongLog TypeID
         /// </summary>
         public enum TreasureType
         {
@@ -3008,7 +3008,7 @@ namespace Anxin.Common
             删除 = -1
         }
 
-        public enum Anxintools
+        public enum Geckotools
         {
             房贷计算器 = 1,
             商业贷款计算器 = 2,

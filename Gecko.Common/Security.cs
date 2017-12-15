@@ -7,7 +7,7 @@ using System.Web.Security;
 using System.Xml;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using Anxin.Common;
+using Gecko.Common;
 
 namespace AiChou.Common
 {

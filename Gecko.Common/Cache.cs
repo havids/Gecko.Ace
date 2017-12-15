@@ -5,7 +5,7 @@ using System.Collections;
 using System.Data;
 using System.IO;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
 
     public class CacheHlper
@@ -107,7 +107,7 @@ namespace Anxin.Common
             string result = CacheHlper.Get(chcheKey) as String;
             if (!string.IsNullOrEmpty(result))
                 return result;
-            string content = Anxin.Common.FileHelper.ReadTextFileString(fileName);
+            string content = Gecko.Common.FileHelper.ReadTextFileString(fileName);
             CacheHlper.Add(chcheKey, content);
             return content;
         }

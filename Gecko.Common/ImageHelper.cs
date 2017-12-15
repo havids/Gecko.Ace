@@ -7,7 +7,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Text.RegularExpressions;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     public class ImageHelper
     {
@@ -226,7 +226,7 @@ namespace Anxin.Common
             }
             catch (Exception e)
             {
-                Anxin.Common.FileHelper.WriteTextFile(System.Web.HttpContext.Current.Server.MapPath("~/") + "xx.txt", e.Message, false);
+                Gecko.Common.FileHelper.WriteTextFile(System.Web.HttpContext.Current.Server.MapPath("~/") + "xx.txt", e.Message, false);
                 return null;
 
             }

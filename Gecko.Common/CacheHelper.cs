@@ -6,7 +6,7 @@ using System.Collections;
 using System.Text.RegularExpressions;
 using System.Web.Caching;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     /// <summary>
     /// 数据缓存

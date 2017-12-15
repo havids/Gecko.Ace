@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Configuration;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     public class PageUtils
     {

@@ -7,7 +7,7 @@ using System.Web;
 using System.Configuration;
 using System.Collections;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
     public class MemcachHelper
     {
@@ -181,7 +181,7 @@ namespace Anxin.Common
             int i = 3;
             while (fileContent.IndexOf("MemcachedKeysInfo") < 0 && i > 0)
             {
-                fileContent = HttpHelper.HttpGetHTML("http://config.anxin.com/html/cache/MemcachedKeysInfo.txt", Encoding.Default);
+                fileContent = HttpHelper.HttpGetHTML("http://config.Gecko.com/html/cache/MemcachedKeysInfo.txt", Encoding.Default);
                 i--;
             }
             byte[] array = Encoding.UTF8.GetBytes(fileContent);

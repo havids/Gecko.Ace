@@ -15,7 +15,7 @@ using System.Text;
 using System.Net.Sockets;
 using System.Linq;
 
-namespace Anxin.Common
+namespace Gecko.Common
 {
 
     public delegate void HttpWebRequestInitiator(HttpWebRequest request);
@@ -269,7 +269,7 @@ namespace Anxin.Common
                 HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(ps[0]);
                 myRequest.CookieContainer = container;
                 myRequest.Method = "POST";
-                myRequest.UserAgent = "Anxin_Server";
+                myRequest.UserAgent = "Gecko_Server";
                 
                 myRequest.ContentType = "application/x-www-form-urlencoded";
                 myRequest.ContentLength = postData.Length;
@@ -315,7 +315,7 @@ namespace Anxin.Common
             {
                 HttpWebRequest webReq = (HttpWebRequest)WebRequest.Create(url);
                 webReq.Method = "POST";
-                webReq.UserAgent = "Anxin_Server";
+                webReq.UserAgent = "Gecko_Server";
                 webReq.ContentType = "application/x-www-form-urlencoded;charset=GBK";
 
                 if (initiator != null)
@@ -362,7 +362,7 @@ namespace Anxin.Common
                 byte[] bData = encoding.GetBytes(jsonData);
                 HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(url);
                 WebReq.Method = "POST";
-                WebReq.UserAgent = "Anxin_Server";
+                WebReq.UserAgent = "Gecko_Server";
                 WebReq.ContentType = "application/json";
                 WebReq.ContentLength = bData.Length;
                 Stream PostData = WebReq.GetRequestStream();
@@ -422,7 +422,7 @@ namespace Anxin.Common
                 stream.Read(bData, 0, bData.Length);
                 HttpWebRequest webReq = (HttpWebRequest)WebRequest.Create(url);
                 webReq.Method = "POST";
-                webReq.UserAgent = "Anxin_Server";
+                webReq.UserAgent = "Gecko_Server";
                 webReq.ContentType = "application/x-www-form-urlencoded";
                 webReq.ContentLength = bData.Length;
                 webReq.Timeout = 30000;
