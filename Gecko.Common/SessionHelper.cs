@@ -9,13 +9,6 @@ namespace Anxin.Common
 {
     public static class SessionHelper
     {
-        /// <summary>
-        /// A delegate used by <see cref="GetValue{T}"/> to retrieve the default, or initial,
-        /// value of an object to be retrieved from the state.
-        /// </summary>
-        /// <typeparam name="T">The object type</typeparam>
-        /// <returns>The default/initial instance of the object.</returns>
-        public delegate T CreateItem<T>();
 
         /// <summary>
         /// Sets the value in the session.
@@ -37,7 +30,7 @@ namespace Anxin.Common
         /// <param name="key">The key.</param>
         /// <param name="creator">A method used to create the default, or initial value, if not found in the session.</param>
         /// <returns>The object, if found, or the return value of <paramref name="creator"/> if not.</returns>
-        public static T GetValue<T>(string key, CreateItem<T> creator)
+        public static T GetValue<T>(string key, Func<T> creator)
         {
             string sessionName = Anxin.Common.Constant.SessionFix + key;
 
@@ -73,7 +66,7 @@ namespace Anxin.Common
         /// <param name="key">The key.</param>
         /// <param name="creator">A method used to create the default, or initial value, if not found in the session.</param>
         /// <returns>The object, if found, or the return value of <paramref name="creator"/> if not.</returns>
-        public static T GetValue<T>(HttpSessionState session, string key, CreateItem<T> creator)
+        public static T GetValue<T>(HttpSessionState session, string key, Func<T> creator)
         {
             string sessionName = Anxin.Common.Constant.SessionFix + key;
 
