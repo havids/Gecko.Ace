@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gecko.Application", "Gecko.Application\Gecko.Application.csproj", "{35104EB5-7F2B-482F-A222-C65BE47A3339}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gecko.Security", "Gecko.Security\Gecko.Security.csproj", "{E94A431A-FEBD-488B-B8FC-97815CAB9B26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gecko.Common", "Gecko.Common\Gecko.Common.csproj", "{3BE6D048-4717-4DAD-B70C-2D3E4BF3C51D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{E94A431A-FEBD-488B-B8FC-97815CAB9B26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E94A431A-FEBD-488B-B8FC-97815CAB9B26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E94A431A-FEBD-488B-B8FC-97815CAB9B26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BE6D048-4717-4DAD-B70C-2D3E4BF3C51D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BE6D048-4717-4DAD-B70C-2D3E4BF3C51D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BE6D048-4717-4DAD-B70C-2D3E4BF3C51D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BE6D048-4717-4DAD-B70C-2D3E4BF3C51D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

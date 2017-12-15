@@ -28,7 +28,7 @@
     <!-- bootstrap & fontawesome -->
     <link rel="stylesheet" href="/content/assets/css/bootstrap.min.css" />
 </head>
-<body>
+<body style="padding-bottom:70px;">
     <p>@*@Html.ValidationSummary()*@</p>
     @using (Ajax.BeginForm("ModuleInfo", "ModuleMgr", null, new AjaxOptions { HttpMethod = "post", OnSuccess = "moduletypesuccess(data);" }, new { @class = "form-horizontal", style = "overflow:hidden;" }))
     {
@@ -92,7 +92,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="position:fixed;bottom:0; padding-left:53px; background-color:#ccc; width:100%;">
                 <div class="col-xs-offset-3 col-xs-10">
                     <button type="submit" class="btn btn-primary">确定</button>
                 </div>
