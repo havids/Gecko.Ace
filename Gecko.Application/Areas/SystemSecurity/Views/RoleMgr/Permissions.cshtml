@@ -14,13 +14,29 @@
     <script type="text/javascript" src="~/Content/Scripts/jquery-easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="~/Content/Scripts/layer/layer.js"></script>
     <link rel="stylesheet" href="/content/assets/css/bootstrap.min.css" />
+    <style type="text/css">
+        .formbottom {
+            position: fixed;
+            bottom: 0px;
+            padding-left: 83px;
+            background-color: #ccc;
+            width: 100%;
+            height: 33px;
+            opacity: 0.9;
+        }
+
+        .ultree {
+            font-size:12px; padding-left:13px; padding-bottom:36px;
+        }
+
+    </style>
 </head>
 <body>
-    <div style="padding:9px; ">
+    <div>
         <input type="hidden" value="@ViewBag.roleId" id="roleId" />
-        <ul id="permission-easyui-tree" style="font-size:12px;">正在加载......</ul>
-        <div style="padding-left:23px; padding-top:13px;">
-            <input type="button" class="btn btn-primary" id="permissionBtnOK" value="确定" />
+        <ul id="permission-easyui-tree" class="ultree">正在加载......</ul>
+        <div class="formbottom">
+                <input type="button" class="btn btn-primary" id="permissionBtnOK" value="确定" />
         </div>
     </div>
 </body>
