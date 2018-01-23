@@ -1,0 +1,42 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Search</title>
+    <script type="text/javascript" src="~/Content/Scripts/jquery-1.8.2.min.js"></script>
+</head>
+<body>
+    <div style="padding-top:130px;">
+        <div style="text-align:center;"><h2>H-Goo</h2></div>
+        <div style="margin:6px; text-align:center;"><input id="txtsearch" type="text" style="padding:9px; width:30%;" />&nbsp;&nbsp;&nbsp;<input id="btnsearch" type="button" value="搜索" style="padding:3px;" /></div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+
+    $(
+        $("#btnsearch").bind("click", function () {
+            isearch();
+        }))
+
+    $(document).keyup(function (e) {//捕获文档对象的按键弹起事件
+        if (e.keyCode == 13) {//按键信息对象以参数的形式传递进来了
+            //此处编写用户敲回车后的代码
+            isearch();
+        }
+    });
+
+    function isearch() {
+        var s = $("#txtsearch").val();
+
+        if (s != '') {
+            window.location.href = "/Search?q=" + s;
+        }
+    }
+
+</script>
