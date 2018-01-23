@@ -478,19 +478,19 @@ namespace Gecko.Application.Areas.SystemSecurity.Controllers
         public ActionResult ChangePassword(string loginId, string oldPwd, string pwd)
         {
             string sSucceed = "-1";
-            try
-            {
-                string LoginId = loginId;
-                string Password = pwd;
-                if (StaffSrv.UpdatePassword(loginId, oldPwd, Password))
-                {
-                    sSucceed = "1";
-                }
-            }
-            catch (Exception ex)
-            {
-                sSucceed = "-1";
-            }
+            //try
+            //{
+            //    string LoginId = loginId;
+            //    string Password = pwd;
+            //    if (StaffSrv.UpdatePassword(loginId, oldPwd, Password))
+            //    {
+            //        sSucceed = "1";
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    sSucceed = "-1";
+            //}
 
             return Content(sSucceed);
 
