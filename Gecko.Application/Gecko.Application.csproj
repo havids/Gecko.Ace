@@ -144,7 +144,6 @@
     <Compile Include="Controllers\LogonController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UrlController.cs" />
-    <Compile Include="Controllers\webhpController.cs" />
     <Compile Include="Filters\ExceptionFilter.cs" />
     <Compile Include="Filters\LoginFilter.cs" />
     <Compile Include="Filters\ViewFilter.cs" />

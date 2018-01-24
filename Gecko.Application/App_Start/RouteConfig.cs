@@ -18,7 +18,13 @@ namespace Gecko.Application
                 name: "gsearch",
                 url: "{controller}",
                 defaults: new { action = "index", id = UrlParameter.Optional },
-                constraints: new { controller = @"Search|Url|webhp" }
+                constraints: new { controller = @"Search|Url" }
+            );
+
+            routes.MapRoute(
+                name: "gindex",
+                url: "webhp",
+                defaults: new { controller="search", action = "index", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
