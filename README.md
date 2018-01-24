@@ -12,7 +12,7 @@ Ace 界面 基于 Bootstraps
 admin  123456
 
 
-另外 项目包含了两外一个地址
+另外 项目包含了另外一个功能
 
 http://www.icarina.com/search
 
