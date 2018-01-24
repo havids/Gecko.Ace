@@ -24,7 +24,7 @@ namespace Gecko.Application
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Logon", action = "Login", id = UrlParameter.Optional }
+                defaults: new { controller = "Logon", action = "Login", id = UrlParameter.Optional }    
             );
 
         }
