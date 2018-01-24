@@ -11,6 +11,10 @@ Ace 界面 基于 Bootstraps
 
 admin  123456
 
+在 /Gecko.Security/SQLServerDAL 目录内 有一个库脚本，可以创建权限库所需要的所有表
+
+默认会有 系统用户的写入
+
 
 另外 项目包含了另外一个功能
 
