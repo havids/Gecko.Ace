@@ -15,14 +15,19 @@
         <div style="text-align:center;"><h2>H-Goo</h2></div>
         <div style="margin:6px; text-align:center;"><input id="txtsearch" type="text" style="padding:9px; width:30%;" />&nbsp;&nbsp;&nbsp;<input id="btnsearch" type="button" value="搜索" style="padding:3px;" /></div>
     </div>
+    <p style="text-align:center;font-weight:bold;">国内访问 Google 的中转搜索引擎</p>
 </body>
 </html>
 <script type="text/javascript">
 
-    $(
+    $(function(){
         $("#btnsearch").bind("click", function () {
             isearch();
-        }))
+        })
+
+         $("#txtsearch").focus();
+    }
+        )
 
     $(document).keyup(function (e) {//捕获文档对象的按键弹起事件
         if (e.keyCode == 13) {//按键信息对象以参数的形式传递进来了
